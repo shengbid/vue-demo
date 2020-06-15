@@ -1,0 +1,106 @@
+<div class="treechart">
+    <table v-if="treeData && treeData.partnerName">
+      <tr>
+        <td :colspan="treeData.childers ? treeData.childers.length * 2 : 1" :class="{parentLevel: treeData.childers, extend: treeData.childers && treeData.extend}">
+          <div :class="{node: true, hasMate: treeData.mate}">
+            <div class="person" @click="$emit('click-node', treeData)">
+              <el-popover
+                v-if="isDetail"
+                placement="top"
+                width="180"
+                trigger="hover">
+                <div style="margin: 0">
+                  <el-button size="mini" type="primary" @click="addStock(0)" v-if="treeData.partnerType !== 1 && treeData.partnerType !== 3">添加</el-button>
+                  <el-button type="primary" size="mini" @click="addStock(1)" v-if="treeData.proportionShares">编辑</el-button>
+                  <el-button type="primary" size="mini" @click="dialogVisible2 = true" v-if="treeData.proportionShares">删除</el-button>
+                </div>
+                <div class="avat" :class="{parent: !treeData.proportionShares, company: Number(treeData.partnerType) === 2, other: Number(treeData.partnerType) === 3}" slot="reference">
+                  {{treeData.partnerName}}({{treeData.proportionShares ? treeData.proportionShares : 100}}%)
+                </div>
+              </el-popover>
+              <div class="avat" :class="{parent: !treeData.proportionShares, company: Number(treeData.partnerType) === 2, other: Number(treeData.partnerType) === 3}" v-else>
+                {{treeData.partnerName}}({{treeData.proportionShares}}%)
+              </div>
+            </div>
+            <div class="person" v-if="treeData.mate" @click="$emit('click-node', treeData.mate)">
+              <el-popover
+                v-if="isDetail"
+                placement="top"
+                width="180"
+                trigger="hover">
+                <div style="margin: 0">
+                  <el-button size="mini" type="primary" @click="addStock">添加</el-button>
+                  <el-button type="primary" size="mini" @click="editStock">编辑</el-button>
+                  <el-button type="primary" size="mini" @click="dialogVisible2 = true">删除</el-button>
+                </div>
+                <div class="avat" slot="reference">
+                  {{treeData.mate.name}}
+                </div>
+              </el-popover>
+              <div class="avat" v-else>
+                {{treeData.mate.name}}
+              </div>
+            </div>
+          </div>
+          <div class="extend_handle" v-if="treeData.childers && treeData.childers.length" @click="toggleExtend(treeData)"></div>
+        </td>
+      </tr>
+      <!-- 这是一个递归组件,注意,这里还要调用,需要传递的数据这里也要传递,否则操作时拿不到子级的数据 -->
+      <tr v-show="treeData" v-if="treeData.childers && treeData.childers.length && treeData.extend">
+        <td v-for="(childers, index) in treeData.childers" :key="index" colspan="2" class="childLevel">
+          <TreeChart :totalRates="totalRates" :json="childers" :oldTreeData="treeData" :isDetail="isDetail" :id="lastId" @click-node="$emit('click-node', $event)"/>
+        </td>
+      </tr>
+    </table>
+
+    <!-- 添加编辑弹框 -->
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible"
+      @close="clearDialog"
+      :close-on-click-modal="false"
+      width="30%">
+      <div class="tips">
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
+          <el-form-item label="类型" prop="type">
+            <el-select v-model="ruleForm.type" placeholder="类型" @change="changeType" :disabled="isEdit === 1">
+              <el-option
+                v-for="item in shareholderTypeOptions"
+                :key="item.value"
+                :label="item.labelZh"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="姓名" prop="partnerName">
+            <el-input :disabled="isDisable" placeholder="输入姓名" :maxlength="32" v-model="ruleForm.partnerName"></el-input>
+          </el-form-item>
+          <el-form-item label="占比" prop="proportionShares">
+            <el-input @blur="checkRate" placeholder="输入占比" :maxlength="5" v-model="ruleForm.proportionShares" @keyup.native="limitNumber"></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <div class="tip-left">
+          <el-button type="info" @click="dialogVisible=false">取消</el-button>
+          <el-button type="primary" @click="confirm">确定</el-button>
+        </div>
+      </span>
+    </el-dialog>
+
+    <!-- 删除提示弹框 -->
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible2"
+      width="30%">
+      <div class="tips">
+        <p style="text-align: left">确定删除该股东信息?</p>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <div class="tip-left">
+          <el-button type="info" @click="dialogVisible2=false">取消</el-button>
+          <el-button type="primary" @click="deleteStock">保存</el-button>
+        </div>
+      </span>
+    </el-dialog>
+  </div>
