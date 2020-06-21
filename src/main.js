@@ -4,6 +4,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 // import store from './vuex/store'
 import router from './router'
+import './permisson'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)

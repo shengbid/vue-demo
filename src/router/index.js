@@ -7,6 +7,10 @@ import Layout from '@/layout'
 import CommonLayout from '@/layout/commonLayout'
 
 const constantRoter = [{
+  path: '/login',
+  component: () => import('@/views/login'),
+  name: 'login',
+}, {
   path: '/',
   component: Layout,
   redirect: '/home',

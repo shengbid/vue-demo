@@ -52,4 +52,7 @@ export default {
   .el-menu .active {
     color: #ffd04b !important;
   }
+  .el-menu .active i {
+      color: #ffd04b !important;
+    }
 </style>
