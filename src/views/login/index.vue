@@ -23,14 +23,13 @@
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">登陆</el-button>
             <el-button class="forget" type="text" @click="forgetPass.visible=true">忘记密码?</el-button>
-            <!-- <el-button @click="resetForm('ruleForm')">重置</el-button> -->
           </el-form-item>
           <p>账号密码错误将弹出验证码弹窗</p>
         </el-form>
       </div>
     </div>
 
-  <!-- 忘记密码弹框 -->
+  <!-- 滑动验证码弹框 -->
   <el-dialog
       append-to-body
       :visible.sync="puzzePass.visible"
@@ -51,11 +50,57 @@
         :slider-text="puzzePass.text"
       ></slideverify>
     </el-dialog>
+  <!-- 忘记密码弹框 -->
+  <el-dialog
+      :visible.sync="forgetPass.visible"
+      title="忘记密码"
+      :close-on-click-modal="false"
+      width="450px">
+       <el-form :model="forgetPass.ruleForm" :rules="forgetPass.rules" ref="forgetruleForm" label-width="80px" class="demo-ruleForm">
+          <el-form-item label="账号" prop="account">
+            <el-input
+            v-model="forgetPass.ruleForm.account"
+            :maxlength="50"
+            placeholder="请输入账号"
+            />
+          </el-form-item>
+          <el-form-item label="手机号" prop="phone">
+            <el-input 
+            v-model="forgetPass.ruleForm.phone" 
+            :maxlength="30"
+            placeholder="请输入手机号码"
+            >
+             <el-button slot="append" @click="sendCode" type="text">{{forgetPass.disabledTips}}</el-button>
+            </el-input>
+          </el-form-item>
+          <el-form-item label="验证码" prop="verificationCode">
+            <el-input 
+            v-model="forgetPass.ruleForm.verificationCode" 
+            :maxlength="6"
+            placeholder="123456"
+            />
+          </el-form-item>
+          <el-form-item label="新密码" prop="newPass">
+            <el-input 
+            v-model="forgetPass.ruleForm.newPass" 
+            :maxlength="30"
+            placeholder="请输入新密码"
+            auto-complete="new-password"
+            show-password
+            />
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button class="forget" @click="resetForm('ruleForm')">重置</el-button>
+          <el-button type="primary" @click="submitPass('forgetruleForm')">修改</el-button>
+        </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
   import slideverify from '@/components/Newcap.vue'
+  import common from '@/utils/common'
   import img1 from '@assets/imgs/rotate1.jpg'
   import img2 from '@assets/imgs/rotate2.jpg'
   import img3 from '@assets/imgs/rotate3.jpg'
@@ -72,11 +117,43 @@
         },
         forgetPass: {
           visible: false,
-          form: {
-
+          count: 60,
+          disabledTips: '获取验证码',
+          ruleForm: {
+            account: '',
+            phone: '',
+            verificationCode: '',
+            newPass: ''
           },
           rules: {
-
+            account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
+            verificationCode: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
+            phone: [{
+              required: true,
+              validator: (rule, value, callback) => {
+                if (!value) {
+                  callback('请输入电话号码')
+                } else if (common.phoneReg.test(value)) {
+                  callback()
+                } else {
+                  callback('电话号码格式不正确')
+                }
+              },
+              trigger: 'change'
+            }],
+            newPass: [{ 
+              required: true,
+              validator: (rule, value, callback) => {
+                if (!value) {
+                  callback('请输入新密码')
+                } else if (common.pwdReg.test(value)) {
+                  callback()
+                } else {
+                  callback('密码需要8-30位任意字符')
+                }
+              },
+              trigger: 'blur'
+            }],
           }
         }, // 忘记密码字段
         puzzePass: {
@@ -153,12 +230,39 @@
         this.getImageVerifyCode()
       },
 
-      // 忘记密码
-      resetPass() {
-
+      // 修改密码
+      submitPass(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.$message.success('修改成功')
+            this.forgetPass.visible = false
+          } else {
+            console.log('error submit!!')
+            return false
+          }
+        })
       },
+      // 忘记密码重置
       resetForm(formName) {
         this.$refs[formName].resetFields()
+      },
+      // 发送验证码
+      sendCode() {
+        // 防止重复点击
+        if (this.forgetPass.count !== 60) {
+          return
+        }
+        this.forgetPass.count--
+        this.forgetPass.disabledTips = `${this.forgetPass.count}秒后重试`
+         const interval = setInterval(() => {
+          this.forgetPass.count--
+          this.forgetPass.disabledTips = `${this.forgetPass.count}秒后重试`
+          if (this.forgetPass.count < 0) {
+            clearInterval(interval)
+            this.forgetPass.count = 60
+            this.forgetPass.disabledTips = '获取验证码'
+          }
+        }, 1000)
       }
     }
   }

@@ -5,7 +5,22 @@
     </div>
     <div class="right-contanier">
       <div class="bread">
-        <BreadCrumb />
+        <div class="left-bread">
+          <BreadCrumb />
+        </div>
+        <div class="right-bread">
+          <el-dropdown @command="clickDropdown">
+            <span class="el-dropdown-link">
+              潇潇羽西<i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="1">退出登录</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
+        <div class="img-view">
+          <el-avatar class="img-icon" icon="el-icon-user-solid"></el-avatar>
+        </div>
       </div>
       <div class="view-container">
         <div class="view-main">
@@ -24,6 +39,15 @@
     components: {
       SiderMenu,
       BreadCrumb
+    },
+    methods: {
+      clickDropdown(command) {
+        // console.log(44, command)
+        if (command === '1') {
+          sessionStorage.removeItem('login')
+          this.$router.push({name: 'login'})
+        }
+      }
     }
   }
 </script>
@@ -46,8 +70,27 @@
     height: 100%;
     overflow: auto;
     .bread {
-      padding: 20px;
+      padding: 0 20px;
       background-color: #fff;
+      height: 60px;
+      .left-bread {
+        float: left;
+        padding-top: 20px;
+      }
+      .img-view {
+        padding-top: 15px;
+        float: right;
+        .img-icon {
+          width: 30px;
+          height: 30px;
+          line-height: 30px;
+          margin-right: 15px;
+        }
+      }
+      .right-bread {
+        float: right;
+        padding-top: 20px;
+      }
     }
     .view-container {
       padding: 20px;

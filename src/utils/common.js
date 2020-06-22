@@ -30,5 +30,42 @@ export default {
       return `/${item}`
     })
     return newMatch
-  }
+  },
+
+  //  密码长度8位以上，须包含大写、小写、数字、特殊符号中的任意3种
+  testPassWord: function (str) {
+    var rC = {
+      lW: '[a-z]',
+      uW: '[A-Z]',
+      nW: '[0-9]',
+      sW: '[\\u0020-\\u002F\\u003A-\\u0040\\u005B-\\u0060\\u007B-\\u007E]'
+    }
+    function Reg (str, rStr) {
+      var reg = new RegExp(rStr)
+      if (reg.test(str)) return true
+      else return false
+    }
+    if (str.length < 8) {
+      return false
+    } else {
+      var tR = {
+        l: Reg(str, rC.lW),
+        u: Reg(str, rC.uW),
+        n: Reg(str, rC.nW),
+        s: Reg(str, rC.sW)
+      }
+      if ((tR.l && tR.u && tR.n) || (tR.l && tR.u && tR.s) || (tR.s && tR.u && tR.n) || (tR.s && tR.l && tR.n)) {
+        // document.title = "密码符合要求"
+        return true
+      } else {
+        return false
+      }
+    }
+  },
+
+  // 密码验证8-30位任意字符
+  pwdReg: /^([0-9a-zA-Z]|(?:&)|(?:~)|(?:!)|(?:@)|(?:#)|(?:\$)|(?:%)|(?:\^)|(?:\*)){8,30}$/,
+
+  // 电话号码验证
+  phoneReg: /^1[3|4|5|6|7|8][0-9]{9}$/
 }
