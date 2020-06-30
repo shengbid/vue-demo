@@ -50,6 +50,12 @@ const constantRoter = [{
       component: () => import('@/views/demo/cascader'),
       name: 'cascadePanel',
       meta: { title: '级联面板', icon: 'el-icon-s-grid' }
+    },
+    {
+      path: 'treeTable',
+      component: () => import('@/views/demo/treeTable'),
+      name: 'treeTable',
+      meta: { title: '树形表格', icon: 'el-icon-s-grid' }
     }
   ]
 }, {

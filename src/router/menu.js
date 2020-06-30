@@ -34,6 +34,12 @@ const menus = [
         component: 'demo/cascader',
         name: 'cascadePanel',
         meta: { title: '级联面板', icon: 'el-icon-s-grid' }
+      },
+      {
+        path: '/demo/treeTable',
+        component: 'demo/treeTable',
+        name: 'treeTable',
+        meta: { title: '树形表格', icon: 'el-icon-s-grid' }
       }
     ]
   },
