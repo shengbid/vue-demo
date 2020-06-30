@@ -15,33 +15,36 @@
 1. 组织架构图,树形图 
 2. 图片旋转
 3. 放大镜功能
-4.级联面板应用
+4. 级联面板应用
+5. 可展开树形列表
 ```
 
+## 项目截图
+<img src="./src/assets/imgs/demo1.png" />
+
+## clone
+```
+git clone https://github.com/shengbid/vue-demo.git
+```
 
 ## Project setup
 ```
-yarn install
+yarn install 或者 npm i 或者 cnpm i
 ```
 
 ### Compiles and hot-reloads for development
 ```
-yarn run serve
+npm run serve
 ```
 
 ### Compiles and minifies for production
 ```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
+npm run build
 ```
 
 ### Lints and fixes files
 ```
-yarn run lint
+npm run lint
 ```
 
 ### Customize configuration
