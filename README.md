@@ -20,7 +20,10 @@
 ```
 
 ## 项目截图
-![Image text](https://github.com/shengbid/img-floader/blob/master/imgs/demo1.png)
+<!-- ![Image text](https://github.com/shengbid/img-floader/blob/master/imgs/demo1.png) -->
+<p align="center">
+  <img width="900" src="https://i.loli.net/2020/06/30/ZBDpL3irVv2KU1X.png">
+</p>
 
 ## clone
 ```
