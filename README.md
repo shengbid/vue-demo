@@ -20,7 +20,7 @@
 ```
 
 ## 项目截图
-<img src="./src/assets/imgs/demo1.png" />
+![Image text](https://github.com/shengbid/img-floader/blob/master/imgs/demo1.png)
 
 ## clone
 ```
