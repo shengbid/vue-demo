@@ -40,6 +40,12 @@ const menus = [
         component: 'demo/treeTable',
         name: 'treeTable',
         meta: { title: '树形表格', icon: 'el-icon-s-grid' }
+      },
+      {
+        path: '/demo/print',
+        component: 'demo/print',
+        name: 'print',
+        meta: { title: '打印', icon: 'el-icon-printer' }
       }
     ]
   },

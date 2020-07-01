@@ -56,6 +56,12 @@ const constantRoter = [{
       component: () => import('@/views/demo/treeTable'),
       name: 'treeTable',
       meta: { title: '树形表格', icon: 'el-icon-s-grid' }
+    },
+    {
+      path: 'print',
+      component: () => import('@/views/demo/print'),
+      name: 'print',
+      meta: { title: '打印', icon: 'el-icon-s-grid' }
     }
   ]
 }, {
