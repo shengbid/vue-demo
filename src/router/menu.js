@@ -50,6 +50,12 @@ const menus = [
     ]
   },
   {
+    path: '/pdf/index',
+    name: 'pdf',
+    component: 'pdf',
+    meta: { title: 'pdf', icon: 'el-icon-tickets' }
+  },
+  {
     path: '/nest',
     name: 'nest',
     component: '',

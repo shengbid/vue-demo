@@ -11,6 +11,11 @@ const constantRoter = [{
   component: () => import('@/views/login'),
   name: 'login',
 }, {
+  path: '/down',
+  component: () => import('@/views/pdf/download'),
+  name: 'downpdf',
+  meta: { title: 'pdf', icon: 'el-icon-s-home' }
+}, {
   path: '/',
   component: Layout,
   redirect: '/home',
@@ -88,6 +93,18 @@ const constantRoter = [{
         }
       ]
     }]
+  }, {
+    path: '/pdf',
+    component: Layout,
+    redirect: '/pdf/index',
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/pdf'),
+        name: 'pdf',
+        meta: { title: 'pdf', icon: 'el-icon-s-home' }
+      }
+    ]
   }
 ]
 
