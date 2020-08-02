@@ -105,6 +105,24 @@ const constantRoter = [{
         meta: { title: 'pdf', icon: 'el-icon-s-home' }
       }
     ]
+  }, {
+    path: '/editImage',
+    component: Layout,
+    redirect: '/editImage/image',
+    children: [
+      {
+        path: 'image',
+        component: () => import('@/views/editImage/editImage'),
+        name: 'editImage',
+        meta: { title: 'editImage', icon: 'el-icon-picture' }
+      },
+      {
+        path: 'imageObj',
+        component: () => import('@/views/editImage/imgobj'),
+        name: 'editImageObj',
+        meta: { title: 'editImage', icon: 'el-icon-picture' }
+      }
+    ]
   }
 ]
 

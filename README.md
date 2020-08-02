@@ -20,6 +20,8 @@
 5. 可展开树形列表
 6. vue页面打印功能
 ```
+5. PDF预览
+6. 图形编辑
 
 ## 项目截图
 <!-- ![Image text](https://github.com/shengbid/img-floader/blob/master/imgs/demo1.png) -->

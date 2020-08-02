@@ -79,7 +79,7 @@ export default {
     },
 
     // tree组件选择改变事件
-    handleCheckChange (val) {
+    handleCheckChange () {
       // console.log(val)
       // 使用getCheckedNodes可以获取当前被选中的节点数据
       let selected = this.$refs.treeData.getCheckedNodes()

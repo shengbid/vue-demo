@@ -56,6 +56,26 @@ const menus = [
     meta: { title: 'pdf', icon: 'el-icon-tickets' }
   },
   {
+    path: '/editImage',
+    name: 'editImage',
+    component: '',
+    meta: { title: '图形编辑', icon: 'el-icon-picture' },
+    children: [
+      {
+        path: '/editImage/image',
+        name: 'editImage',
+        component: '/editImage/editImage',
+        meta: { title: '图形编辑', icon: 'el-icon-picture' },
+      },
+      {
+        path: '/editImage/imageObj',
+        name: 'editImageObj',
+        component: '/editImage/imgobj',
+        meta: { title: '图形编辑(js包引入)', icon: 'el-icon-picture' },
+      }
+    ]
+  },
+  {
     path: '/nest',
     name: 'nest',
     component: '',
