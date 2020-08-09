@@ -57,12 +57,6 @@ const constantRoter = [{
       meta: { title: '级联面板', icon: 'el-icon-s-grid' }
     },
     {
-      path: 'treeTable',
-      component: () => import('@/views/demo/treeTable'),
-      name: 'treeTable',
-      meta: { title: '树形表格', icon: 'el-icon-s-grid' }
-    },
-    {
       path: 'print',
       component: () => import('@/views/demo/print'),
       name: 'print',
@@ -121,6 +115,24 @@ const constantRoter = [{
         component: () => import('@/views/editImage/imgobj'),
         name: 'editImageObj',
         meta: { title: 'editImage', icon: 'el-icon-picture' }
+      }
+    ]
+  }, {
+    path: '/Table',
+    component: Layout,
+    redirect: '/Table/tree',
+    children: [
+      {
+        path: 'tree',
+        component: () => import('@/views/Table/treeTable'),
+        name: 'treeTable',
+        meta: { title: '树形表格', icon: 'el-icon-s-grid' }
+      },
+      {
+        path: 'validate',
+        component: () => import('@/views/Table/validateTable'),
+        name: 'validateTable',
+        meta: { title: '可验证表格', icon: 'el-icon-notebook-2' }
       }
     ]
   }

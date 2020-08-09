@@ -36,12 +36,6 @@ const menus = [
         meta: { title: '级联面板', icon: 'el-icon-s-grid' }
       },
       {
-        path: '/demo/treeTable',
-        component: 'demo/treeTable',
-        name: 'treeTable',
-        meta: { title: '树形表格', icon: 'el-icon-s-grid' }
-      },
-      {
         path: '/demo/print',
         component: 'demo/print',
         name: 'print',
@@ -72,6 +66,26 @@ const menus = [
         name: 'editImageObj',
         component: '/editImage/imgobj',
         meta: { title: '图形编辑(js包引入)', icon: 'el-icon-picture' },
+      }
+    ]
+  },
+  {
+    path: '/Table',
+    name: 'table',
+    component: '',
+    meta: { title: '表格', icon: 'el-icon-menu' },
+    children: [
+      {
+        path: '/Table/tree',
+        name: 'treeTable',
+        component: '/Table/treeTable',
+        meta: { title: '树形表格', icon: 'el-icon-s-grid' },
+      },
+      {
+        path: '/Table/validate',
+        name: 'validateTable',
+        component: '/Table/validateTable',
+        meta: { title: '可验证表格', icon: 'el-icon-notebook-2'},
       }
     ]
   },

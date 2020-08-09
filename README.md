@@ -17,13 +17,14 @@
 2. 图片旋转
 3. 放大镜功能
 4. 级联面板应用
-5. 可展开树形列表
-6. vue页面打印功能
+5. vue页面打印功能
 ```
 5. PDF预览
 6. 图形编辑
+7. 表格编辑,验证
 
 ## 项目截图
+(截图是之前截的,后面更新的一些功能没有再重新截图,以目录功能为主)
 <!-- ![Image text](https://github.com/shengbid/img-floader/blob/master/imgs/demo1.png) -->
 <p align="center">
   <img width="900" src="https://i.loli.net/2020/06/30/ZBDpL3irVv2KU1X.png">
