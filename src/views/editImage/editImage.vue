@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header">
-      <h2>图形编辑</h2>
+      <h2>图形编辑(平移,旋转,缩放,翻转)</h2>
       <p>示例博客链接<a href="https://www.cnblogs.com/steamed-twisted-roll/p/13408245.html" target="_blank">https://www.cnblogs.com/steamed-twisted-roll/p/13408245.html</a></p>
     </div>
     <div class="container">

@@ -8,6 +8,7 @@ import Print from 'vue-print-nb'
 // import store from './vuex/store'
 import router from './router'
 import './permisson'
+import '../mock'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)

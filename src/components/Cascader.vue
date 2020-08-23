@@ -1,6 +1,26 @@
 <template>
   <div>
-    <el-button @click="dialogVisible = true">新增</el-button>
+    <h2>控制可选择的层级</h2>
+    <p>
+      使用mockjs获取数据,针对动态数据添加禁止选择属性,适用场景:添加层级时,控制添加的层级数.
+      本例是超过三级节点不能选择, 第四级的节点不能选择
+    </p>
+    <el-form label-width="80px" :model="typeInfo">
+      <el-form-item label="分类名称">
+        <el-input v-model="typeInfo.name"></el-input>
+      </el-form-item>
+      <el-form-item label="分类组">
+        <el-cascader
+          v-model="typeInfo.group"
+          :options="typeOptions"
+          :props="props"
+          @change="handleChange">
+        </el-cascader>
+      </el-form-item>
+    </el-form>
+
+      <!--放在弹框里  -->
+    <!-- <el-button @click="dialogVisible = true">新增</el-button> -->
     <el-dialog
       title="添加分类"
       :visible.sync="dialogVisible"
@@ -18,9 +38,6 @@
               @change="handleChange">
             </el-cascader>
           </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="submitForm">添加</el-button>
-          </el-form-item>
         </el-form>
       </div>
       <span slot="footer" class="dialog-footer">
@@ -32,6 +49,8 @@
 </template>
   
   <script>
+  import { getClassify } from '@/service/list'
+
   export default {
     props: {
       
@@ -61,24 +80,14 @@
     methods: {
       // 获取分类级别
       getTypeOptions () {
-        // 假设后台返回的数据 4级
-        let resDate = [{
-          id: 1,
-          name: '食品',
-          childs: [
-            {id: 3, name: '进口食品', childs: [
-                {id: 5, name: '果干', childs: [{id: 7, name: '坚果',}]}, 
-                {id: 6, name: '面包'}
-              ]
-            }, 
-            {id: 4, name: '国内食品'}
-          ]
-          }, {id: 2, name: '清洁'}
-        ]
-        // 限制只能添加4级分类
-        this.setDisable (1, resDate, 3)
-        console.log(resDate)
-        this.typeOptions = resDate
+        // mockjs获取数据
+        getClassify().then(res => {
+          if (res.data) {
+            this.setDisable(1, res.data, 3)
+            this.typeOptions = res.data
+            console.log(this.typeOptions)
+          }
+        })
       },
 
       // 超过3级,不能选中,子级分类最多4级
@@ -95,16 +104,15 @@
         } else {
           data.forEach(v => {
             if (v.childs && v.childs.length) {
-              count++
-              this.setDisable(count, v.childs)
+              const _count = count + 1
+              this.setDisable(_count, v.childs, maxNum)
+            } else {
+              delete v.childs
             }
           })
         }
       },
-      // 添加分类
-      submitForm () {
 
-      },
       handleChange (val) {
         console.log(val)
       }
