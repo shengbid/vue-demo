@@ -66,6 +66,12 @@ const menus = [
         name: 'editImageObj',
         component: '/editImage/imgobj',
         meta: { title: '图形编辑(js包引入)', icon: 'el-icon-picture' },
+      },
+      {
+        path: '/editImage/upload/file',
+        name: 'uploadFile',
+        component: '/editImage/upload',
+        meta: { title: '文件列表上传', icon: 'el-icon-files' },
       }
     ]
   },

@@ -115,6 +115,12 @@ const constantRoter = [{
         component: () => import('@/views/editImage/imgobj'),
         name: 'editImageObj',
         meta: { title: 'editImage', icon: 'el-icon-picture' }
+      },
+      {
+        path: 'upload/file',
+        component: () => import('@/views/editImage/upload'),
+        name: 'uploadFile',
+        meta: { title: 'uploadFile', icon: 'el-icon-picture' }
       }
     ]
   }, {
