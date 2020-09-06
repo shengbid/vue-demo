@@ -139,6 +139,12 @@ const constantRoter = [{
         component: () => import('@/views/Table/validateTable'),
         name: 'validateTable',
         meta: { title: '可验证表格', icon: 'el-icon-notebook-2' }
+      },
+      {
+        path: 'checkbox',
+        component: () => import('@/views/Table/checkTable'),
+        name: 'checkTable',
+        meta: { title: '可选择表格', icon: 'el-icon-notebook-2' }
       }
     ]
   }

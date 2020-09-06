@@ -53,5 +53,40 @@ export default [
         data,
       }
     }
+  },
+  {
+    url: '/get/check/table/list',
+    type: 'get',
+    response: (config) => {
+      const page = config.body ? (JSON.parse(config.body)).page : 1
+      let index = 0
+      switch (Number(page)) {
+        case 2:
+          index = 10
+          break;
+        case 3:
+          index = 20
+          break;
+      
+        default:
+          index = 0
+          break;
+      }
+      let data = []
+      for (let i = index; i < index + 10; i++) {
+        const obj = {
+          id: i,
+          name: '黎明' + i,
+          age: Math.floor(Math.random() * 20 + 1),
+          class: Math.floor(Math.random() * 5 + 1)
+        }
+        data.push(obj)
+      }
+      return {
+        code: 200,
+        message: 'success',
+        data
+      }
+    }
   }
 ]

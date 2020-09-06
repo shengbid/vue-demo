@@ -6,3 +6,11 @@ export const getClassify = () => {
     method: 'get'
   })
 }
+// 获取表格数据
+export const getCheckTaleList = (data) => {
+  return request({
+    url: '/get/check/table/list',
+    method: 'get',
+    data
+  })
+}
