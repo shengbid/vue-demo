@@ -145,6 +145,12 @@ const constantRoter = [{
         component: () => import('@/views/Table/checkTable'),
         name: 'checkTable',
         meta: { title: '可选择表格', icon: 'el-icon-notebook-2' }
+      },
+      {
+        path: 'spanTable',
+        component: () => import('@/views/Table/spanTable'),
+        name: 'spanTable',
+        meta: { title: '表格合并', icon: 'el-icon-film' }
       }
     ]
   }

@@ -98,6 +98,12 @@ const menus = [
         name: 'checkTable',
         component: '/Table/checkTable',
         meta: { title: '可选择表格', icon: 'el-icon-notebook-2'},
+      },
+      {
+        path: '/Table/span',
+        name: 'spanTable',
+        component: '/Table/spanTable',
+        meta: { title: '表格合并', icon: 'el-icon-film'},
       }
     ]
   },
