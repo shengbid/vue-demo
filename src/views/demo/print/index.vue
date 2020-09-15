@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h2>案例使用的是utils文件下的vue-print-nb组件</h2>
+    <p>博客地址:<a target="_blank" href="https://www.cnblogs.com/steamed-twisted-roll/p/10683680.html">https://www.cnblogs.com/steamed-twisted-roll/p/10683680.html</a></p>
     <div id="printMe" ref="printContent">
       <ul class="content">
         <li>轻轻的我走了，</li>
