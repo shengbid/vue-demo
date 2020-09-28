@@ -35,6 +35,7 @@ export default {
 				closeBtn = false;
 				new Print({
 					ids: id, // * 局部打印必传入id
+					ignoreClass: binding.value.ignoreClass, // 不需要打印内容的class
 					standard: '', // 文档类型，默认是html5，可选 html5，loose，strict
 					extraHead: binding.value.extraHead, // 附加在head标签上的额外标签,使用逗号分隔
 					extraCss: binding.value.extraCss, // 额外的css连接，多个逗号分开

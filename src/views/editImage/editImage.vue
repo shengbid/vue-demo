@@ -143,8 +143,8 @@ export default {
         moveMouse = true
         if (init.count < 1) {
           init = {
-            X: e.pageX,
-            Y: e.pageY,
+            X: pointA.X,
+            Y: pointA.Y,
             count: 1
           }
         }
@@ -170,8 +170,8 @@ export default {
               Y: $('.box').height() / 2 + $('.box').offset().top
             };
             if (count > 0) {
-              mPointB.X = event.pageX - init.X
-              mPointB.Y = event.pageY - init.Y
+              mPointB.X = pointA.X - init.X
+              mPointB.Y = pointA.Y - init.Y
               mPointB.flag = true
             }
             // console.log(pointA, mPointB)

@@ -14,7 +14,8 @@ export default class {
       extraCss: '', // 额外的css逗号分隔
       popTitle: '', // 标题
       endCallback: null, // 成功打开后的回调函数
-      ids: '' // 局部打印的id
+      ids: '', // 局部打印的id
+      ignoreClass: '' // 不需要打印内容的class
     };
     Object.assign(this.settings, option);
 
@@ -126,8 +127,34 @@ export default class {
     ids = ids.replace(new RegExp("#", "g"), '');
     this.elsdom = this.beforeHanler(document.getElementById(ids));
     let ele = this.getFormData(this.elsdom);
+    ele = this.ignoreText(document.getElementById(ids))
     let htm = ele.outerHTML;
     return '<body>' + htm + '</body>';
+  }
+  // 去除不需要打印的内容
+  ignoreText(ele) {
+    const copy = ele.cloneNode(true)
+    const ignoreNodes = copy.querySelectorAll('.' + this.settings.ignoreClass);
+    const nodes = copy.childNodes
+    // console.log(copy, nodes)
+    const reducer = (el, data, ignoreNode) => {
+      for (let i = 0; i < data.length; i++) {
+        const item = data[i];
+        if (item == ignoreNode) {
+          el.removeChild(ignoreNode)
+          break
+        } else if (item.childNodes && item.childNodes.length) {
+          reducer(item, item.childNodes, ignoreNode)
+        }
+      }
+    }
+    if (ignoreNodes && ignoreNodes.length) {
+      for (let i = 0; i < ignoreNodes.length; i++) {
+        const ignoreNode = ignoreNodes[i];
+        reducer(copy, nodes, ignoreNode)
+      }
+    }
+    return copy
   }
   // 克隆节点之前做的操作
   beforeHanler(elsdom) {

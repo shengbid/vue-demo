@@ -18,6 +18,11 @@
           :autosize="{ minRows: 2, maxRows: 4}"
           placeholder="请输入内容"
         /></li>
+        <li class="noprint">
+          <p>不需要打印的内容</p>
+          <p>不需要打印的内容</p>
+          <p>不需要打印的内容</p>
+        </li>
       </ul>
       <div>
         <ul>
@@ -27,6 +32,11 @@
           <li>轻轻的我走了，</li>
           <li>轻轻的我走了，</li>
         </ul>
+      </div>
+        <div style="padding: 30px" class="noprint">
+        <p>不需要打印的内容</p>
+        <p>不需要打印的内容</p>
+        <p>不需要打印的内容</p>
       </div>
     </div>
     <el-button type="primary" @click="toImg">转图片打印</el-button>
@@ -45,6 +55,7 @@ export default {
       printObj: {
         id: 'printMe',
         popTitle: '打印',
+        ignoreClass: 'noprint',
         endCallback: (e) => {
           console.log(e, 5555)
         }

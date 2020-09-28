@@ -178,8 +178,8 @@ EditImage.prototype.move = function () {
     _this.moveMouse = true
     if (_this.init.count < 1) {
       _this.init = {
-        X: e.pageX,
-        Y: e.pageY,
+        X:  _this.pointA.X,
+        Y:  _this.pointA.Y,
         count: 1
       }
     }
@@ -205,8 +205,8 @@ EditImage.prototype.move = function () {
           Y: $(`.imgobj-container-box .imgobj-box`).height() / 2 + $(`.imgobj-container-box .imgobj-box`).offset().top
         };
         if (_this.count > 0) {
-          _this.mPointB.X = event.pageX - _this.init.X
-          _this.mPointB.Y = event.pageY - _this.init.Y
+          _this.mPointB.X = _this.pointA.X - _this.init.X
+          _this.mPointB.Y = _this.pointA.Y - _this.init.Y
           _this.mPointB.flag = true
         }
         // console.log(pointA, mPointB)
