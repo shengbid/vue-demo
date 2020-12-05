@@ -1,6 +1,6 @@
 <template>
   <div style="padding:30px;">
-    <h2>可选择表格(默认选中年龄小于10的数据,翻页保存上一页选中表格,点击右侧删除可以控制左侧表格选中)</h2>
+    <h2>可选择表格(翻页保存上一页选中表格,点击右侧删除可以控制左侧表格选中)</h2>
     <p>博客连接:<a href="https://www.cnblogs.com/steamed-twisted-roll/p/10451549.html" target="_blank">https://www.cnblogs.com/steamed-twisted-roll/p/10451549.html</a></p>
     <div class="contanier">
       <div class="table-contanier">
@@ -66,9 +66,10 @@ export default {
   methods: {
     // 处理表格数据默认展示
     handleTable() {
+      const ids = this.list.map(item => {return item.id})
       this.tableData.forEach(item => {
         // console.log(item, this.$refs.checkTable)
-        if (item.age < 10) { // 展示判断条件
+        if (item.age < 10 && !ids.includes(item.id)) { // 展示判断条件
           this.$refs.checkTable && this.$refs.checkTable.toggleRowSelection(item, true)
         }
       })
@@ -78,7 +79,8 @@ export default {
       getCheckTaleList({page: this.page}).then(res => {
         // console.log(res)
         this.tableData = res.data
-        this.handleTable()
+        // 默认选中方法
+        // this.handleTable()
       })
       // console.log(this.tableData)
     },

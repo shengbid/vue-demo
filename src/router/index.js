@@ -34,7 +34,7 @@ const constantRoter = [{
   children: [
     {
       path: 'tree',
-      component: () => import('@/views/demo/tree'),
+      component: () => import('@/views/demo/checkbox'),
       name: 'tree',
       meta: { title: '树形图', icon: 'el-icon-menu' }
     },
