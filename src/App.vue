@@ -129,4 +129,7 @@ a {
   text-decoration: none;
   color: inherit;
 }
+p>a {
+  color: #409eff;
+}
 </style>

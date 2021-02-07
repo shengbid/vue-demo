@@ -112,8 +112,8 @@
     data() {
       return {
         ruleForm: {
-          account: '',
-          password: ''
+          account: 'admin',
+          password: '123456'
         },
         forgetPass: {
           visible: false,

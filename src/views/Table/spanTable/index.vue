@@ -116,6 +116,10 @@ export default {
             name: '器械1'
           }]
         }]
+      }, {
+        id: 4,
+        region: 'deguo',
+        type: []
       }]
       this.dealTable(tableData)
       this.dealTable(tableData, 2)
@@ -190,10 +194,13 @@ export default {
     },
     // 表格合并方法(两层数据)
     arraySpanMethod2({ row, column, rowIndex, columnIndex }) {
-      if (columnIndex === 0 || columnIndex === 1) {
-        if (row.typeIndex) { // 如果有值,说明需要合并
-          return [row.typeIndex, 1]
-        } else return [0, 0]
+      if (!row.noChild) {
+        if (columnIndex === 0 || columnIndex === 1) {
+          if (row.typeIndex) { // 如果有值,说明需要合并
+            return [row.typeIndex, 1]
+          } else return [0, 0]
+        }
+        
       }
     }
   }

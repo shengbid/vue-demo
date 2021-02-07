@@ -34,7 +34,7 @@ const constantRoter = [{
   children: [
     {
       path: 'tree',
-      component: () => import('@/views/demo/checkbox'),
+      component: () => import('@/views/demo/tree'),
       name: 'tree',
       meta: { title: '树形图', icon: 'el-icon-menu' }
     },
@@ -151,6 +151,12 @@ const constantRoter = [{
         component: () => import('@/views/Table/spanTable'),
         name: 'spanTable',
         meta: { title: '表格合并', icon: 'el-icon-film' }
+      },
+      {
+        path: 'hoverSpanTable',
+        component: () => import('@/views/Table/hoverSpanTable'),
+        name: 'hoverSpanTable',
+        meta: { title: '表格合并hover', icon: 'el-icon-film' }
       }
     ]
   }

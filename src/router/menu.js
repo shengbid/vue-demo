@@ -104,6 +104,12 @@ const menus = [
         name: 'spanTable',
         component: '/Table/spanTable',
         meta: { title: '表格合并', icon: 'el-icon-film'},
+      },
+      {
+        path: '/Table/hover',
+        name: 'hoverSpanTable',
+        component: '/Table/hoverSpanTable',
+        meta: { title: '表格合并hover', icon: 'el-icon-film'},
       }
     ]
   },
