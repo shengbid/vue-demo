@@ -95,6 +95,7 @@
     .view-container {
       padding: 20px;
       min-height: ~"calc(100% - 100px)";
+      height: ~"calc(100% - 100px)";
       .view-main {
         background-color: #fff;
         padding: 20px;
