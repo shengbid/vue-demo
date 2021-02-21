@@ -9,8 +9,7 @@
         <div class="img-box">
           <div class="flat">翻转</div>
           <div class="rotate">旋转</div>
-          <div class="rotate">旋转</div>
-          <div class="rotate">旋转</div>
+          <div class="rotate1">旋转</div>
           <img src="@/assets/imgs/rotate1.jpg" alt="" class="img">
         </div>
       </div>
@@ -45,41 +44,59 @@ export default {
       // 这里通过鼠标的移动获取起始点和结束点
       var typeMouse = false;
       var moveMouse = false;
-      var sa = 1 // 初始拉伸比例
-      var count = 0
+      var allA = 0; // 存放鼠标旋转总共的度数
+      var count = 0;
+      var mPointB = {} // 移动的B点距离
+      var init = {
+        count: 0
+      }
+      var oldTarget = {
+        target: null,
+        angle: 0
+      }
 
       // 元素跟随鼠标移动旋转拉伸
-      $(".rotate").on('mousedown', function (e) {
+      $(".rotate, .rotate1").on('mousedown', function (e) {
         e.preventDefault()
         e.stopPropagation()
+        // 计算两个旋转方块之间的角度
+        var tanA = $('.box').width() / $('.box').height()
+        var d = Math.round(Math.atan(tanA) * 180 / Math.PI)
 
-        typeMouse = true; 
-        //获取起始点坐标
-        pointB.X = e.pageX;
-        pointB.Y = e.pageY;
-        console.log('pointA', pointA, 'pointB', pointB)
-
-        // 计算出初始拉伸比例 
-        if (count < 1) {
-          var scalX1 = pointB.X - pointA.X
-          var scalY1 = pointB.Y - pointA.Y
-          sa = Math.sqrt(scalX1 * scalX1 + scalY1 * scalY1)
-          count++
+        if (oldTarget.target && oldTarget.target != e.currentTarget) {
+          if (e.currentTarget == $('.rotate')[0]) {
+            oldTarget.angle = 2 * d
+          } else {
+            oldTarget.angle = -2 * d
+          }
+        } else {
+          oldTarget.angle = 0
         }
 
-        // 取出当前选转的角度
-        var rotate = $('.img-box').attr('rotate')
-        // console.log(rotate, scale)
+        typeMouse = true; //获取起始点坐标
+        if (count < 1) { // 以鼠标第一次落下的点为起点
+          pointB.X = e.pageX;
+          pointB.Y = e.pageY;
+          init.count = 0
+          oldTarget.target = e.currentTarget
+          count++
+        }
+        if (mPointB.flag) { // 如果移动后,元素的B点也需要加上平移的距离
+          pointB.X += mPointB.X
+          pointB.Y += mPointB.Y
+          mPointB.flag = false
+          init.count = 0
+        }
+        console.log(5, pointA, pointB)
 
-        $('.container').on('mousemove', function (e) {
+        $(document).on('mousemove', function (e) {
           e.preventDefault()
-          e.stopPropagation()
           if (typeMouse) {
-
             pointC.X = e.pageX;
             pointC.Y = e.pageY; // 获取结束点坐标
-            // console.log(pointC)
             // 计算每次移动元素的半径变化,用作拉伸
+            var scalX1 = pointB.X - pointA.X
+            var scalY1 = pointB.Y - pointA.Y
             var scalX = pointC.X - pointA.X
             var scalY = pointC.Y - pointA.Y
 
@@ -100,26 +117,21 @@ export default {
             var cosA = (Math.pow(lengthAB, 2) + Math.pow(lengthAC, 2) - Math.pow(lengthBC, 2)) /
               (2 * lengthAB * lengthAC); //   余弦定理求出旋转角
             var angleA = Math.round(Math.acos(cosA) * 180 / Math.PI);
-            var allA = 0
             if (direct < 0) {
               allA = -angleA; //叉乘结果为负表示逆时针旋转， 逆时针旋转减度数
             } else {
               allA = angleA; //叉乘结果为正表示顺时针旋转，顺时针旋转加度数
             }
 
-            // 如果上一次按下旋转已经有度数,需要加上上一次的度数
-            if (rotate) {
-              allA += Number(rotate)
-            }
-            // console.log(allA, rotate)
+            allA += oldTarget.angle
+            // $('.img-box').css('transform', 'rotate('+allA+'deg)')
 
             // 计算出拉伸比例
+            var sa = Math.sqrt(scalX1 * scalX1 + scalY1 * scalY1)
             var ss = Math.sqrt(scalX * scalX + scalY * scalY)
-            var sc = ss / sa                                                                                                                             
-            // console.log(sc)
-
+            var sc = ss / sa
+            // console.log(allA, sc)
             $('.img-box').css('transform', 'rotate('+allA+'deg) scale('+sc+')')
-            $('.img-box').attr({rotate: allA})
           }
         });
       });
@@ -129,28 +141,39 @@ export default {
         e.preventDefault()
         e.stopPropagation()
         moveMouse = true
-
+        if (init.count < 1) {
+          init = {
+            X: pointA.X,
+            Y: pointA.Y,
+            count: 1
+          }
+        }
         var dis = {
           X: e.pageX - $('.box').position().left,
           Y: e.pageY - $('.box').position().top
         }
-        $('.container').on('mousemove', function (event) {
+        $(document).on('mousemove', function (event) {
           event.preventDefault()
           event.stopPropagation()
           if (moveMouse) {
             var end = {}
             end.X = event.pageX - dis.X
             end.Y = event.pageY - dis.Y
-
             $('.box').css({
               'left': end.X,
               'top': end.Y
             })
+            // console.log($('.box').offset(), $('.box').position(), end, dis)
 
             pointA = { // 移动后,重新计算元素中心点 元素1/2自身宽高 + 元素的定位
               X: $('.box').width() / 2 + $('.box').offset().left,
               Y: $('.box').height() / 2 + $('.box').offset().top
             };
+            if (count > 0) {
+              mPointB.X = pointA.X - init.X
+              mPointB.Y = pointA.Y - init.Y
+              mPointB.flag = true
+            }
             // console.log(pointA, mPointB)
           }
         })
@@ -158,7 +181,7 @@ export default {
       $(document).on('mouseup', function (e) {
         typeMouse = false;
         moveMouse = false
-      });
+      })
     }
   }
 }
@@ -179,10 +202,10 @@ html, body {
     height: 400px;
     color: #fff;
   }
-   .img-box {
+  .img-box {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 400px;
+    height: 400px;
     background-color: sandybrown;
   }
   .flat {
@@ -197,8 +220,10 @@ html, body {
     text-align: center;
     cursor: default;
   }
-  .rotate {
+  .rotate, .rotate1 {
     position: absolute;
+    right: -20px;
+    bottom: -20px;
     width: 40px;
     height: 40px;
     background-color: royalblue;
@@ -207,17 +232,9 @@ html, body {
     line-height: 40px;
     text-align: center;
   }
-  .rotate:nth-child(2) {
-    right: -20px;
-    bottom: -20px;
-  }
-  .rotate:nth-child(3) {
+  .rotate1 {
     left: -20px;
-    bottom: -20px;
-  }
-  .rotate:nth-child(4) {
-    left: -20px;
-    top: -20px;
+    right: auto;
   }
   .img {
     width: 100%;
