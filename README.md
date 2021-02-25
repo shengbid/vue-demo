@@ -7,7 +7,7 @@
 ```
 ###  如果有问题可以加我微信haluo441,拉你进交流群,大家一起学习进步O(∩_∩)O哈哈~
 <p align="center">
-  <img width="900" src="https://i.loli.net/2021/02/25/u5cPEk1aIBWCoRA.jpg">
+  <img width="300" src="https://i.loli.net/2021/02/25/u5cPEk1aIBWCoRA.jpg">
 </p>
 
 ### 项目目录
