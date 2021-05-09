@@ -157,6 +157,12 @@ const constantRoter = [{
         component: () => import('@/views/Table/hoverSpanTable'),
         name: 'hoverSpanTable',
         meta: { title: '表格合并hover', icon: 'el-icon-film' }
+      },
+      {
+        path: 'radioTable',
+        component: () => import('@/views/Table/radioTable'),
+        name: 'radioTable',
+        meta: { title: '单选表格', icon: 'el-icon-film' }
       }
     ]
   }

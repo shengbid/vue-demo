@@ -110,6 +110,12 @@ const menus = [
         name: 'hoverSpanTable',
         component: '/Table/hoverSpanTable',
         meta: { title: '表格合并hover', icon: 'el-icon-film'},
+      },
+      {
+        path: '/Table/radio',
+        name: 'radioTable',
+        component: '/Table/radioTable',
+        meta: { title: '单选表格', icon: 'el-icon-film'},
       }
     ]
   },
