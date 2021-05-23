@@ -51,7 +51,8 @@ git clone https://github.com/shengbid/vue-demo.git
 
 ## Project setup
 ```
-yarn install 或者 npm i 或者 cnpm i
+npm i 或者 cnpm i
+最近有童鞋问启动报错的,使用yarn安装的包会有问题,建议使用cnpm
 ```
 
 ### Compiles and hot-reloads for development
