@@ -53,6 +53,36 @@
         label="产业"
       />
     </el-table>
+    <!-- <p>树形数据的表格</p>
+    <el-table
+      :data="tableData3"
+      :span-method="arraySpanMethod3"
+      border
+      style="width: 100%"
+    >
+      <el-table-column
+        prop="name"
+        label="一级菜单"
+        width="180"
+      />
+      <el-table-column
+        prop="subname"
+        label="二级菜单"
+      />
+      <el-table-column
+        prop="type"
+        label="操作"
+      >
+        <template slot-scope="scope">
+          <el-button 
+            type="text" 
+            size="small"
+            :key="i"
+            v-for="(item, i) in scope.row.fullNames"
+          >{{item}}</el-button>
+        </template>
+      </el-table-column>
+    </el-table> -->
   </div>
 </template>
 
@@ -61,11 +91,13 @@ export default {
   data() {
     return {
       tableData: [],
-      tableData2: []
+      tableData2: [],
+      tableData3: []
     }
   },
   created() {
     this.getTable()
+    this.hand()
   },
   methods: {
     getTable() {
@@ -123,6 +155,79 @@ export default {
       }]
       this.dealTable(tableData)
       this.dealTable(tableData, 2)
+    },
+
+    hand() {
+      const data = [{
+        id: 1,
+        level: 1,
+        name: '一级菜单',
+        children: [{
+          id: 11,
+          level: 2,
+          name: '一级菜单1-1',
+          subname: '二级菜单1',
+          fullNames: [{
+            fname: '添加',
+          },{
+            fname: '编辑',
+          },{
+            fname: '删除',
+          }],
+          children: null
+        },{
+          id: 12,
+          level: 2,
+          name: '一级菜单1-2',
+          subname: '二级菜单2',
+          fullNames: [{
+            fname: '添加',
+          },{
+            fname: '编辑',
+          }],
+          children: null
+        }]
+      }, {
+        id: 2,
+        level: 1,
+        children: null,
+        name: '一级菜单2',
+        fullNames: [{
+          fname: '添加',
+        },{
+          fname: '编辑'
+        }]
+      },{
+        id: 3,
+        level: 1,
+        children: null,
+        name: '一级菜单3',
+        fullNames: [{
+          fname: '添加',
+        },{
+          fname: '编辑'
+        }]
+      }]
+      const arr = this.handleData(data, [])
+      console.log(arr)
+      this.tableData3 = arr
+    },
+
+    handleData(data, arr){
+      data.some(item => {
+        if (!item.children){
+          const obj = {
+            id: item.id,
+            name: item.name,
+            subname: item.subname,
+            fullNames: item.fullNames.map(item => item.fname)
+          }
+          arr.push(obj)
+        } else {
+          this.handleData(item.children, arr)
+        }
+      })
+      return arr
     },
 
     // 处理表格数据(level,表格合并的层级)
@@ -202,6 +307,9 @@ export default {
         }
         
       }
+    },
+    arraySpanMethod3(){
+
     }
   }
 }

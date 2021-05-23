@@ -72,6 +72,12 @@ const menus = [
         name: 'uploadFile',
         component: '/editImage/upload',
         meta: { title: '文件列表上传', icon: 'el-icon-files' },
+      },
+      {
+        path: 'editImage/drawImage',
+        name: 'drawImage',
+        component: '/editImage/drawImage',
+        meta: { title: '绘制图形', icon: 'el-icon-files' },
       }
     ]
   },
