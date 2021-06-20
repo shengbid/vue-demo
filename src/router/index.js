@@ -122,12 +122,6 @@ const constantRoter = [{
         name: 'uploadFile',
         meta: { title: 'uploadFile', icon: 'el-icon-picture' }
       },
-      {
-        path: 'draw/image',
-        component: () => import('@/views/editImage/drawImage'),
-        name: 'drawImage',
-        meta: { title: 'uploadFile', icon: 'el-icon-picture' }
-      }
     ]
   }, {
     path: '/Table',

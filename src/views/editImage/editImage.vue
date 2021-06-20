@@ -5,7 +5,7 @@
       <p>示例博客链接<a href="https://www.cnblogs.com/steamed-twisted-roll/p/14292478.html" target="_blank">https://www.cnblogs.com/steamed-twisted-roll/p/14292478.html</a></p>
       <p>方法一博客链接<a href="https://www.cnblogs.com/steamed-twisted-roll/p/13408245.html" target="_blank">https://www.cnblogs.com/steamed-twisted-roll/p/13408245.html</a></p>
     </div>
-    <div class="container">
+    <div class="container" ref="imgcontainer">
       <div class="box">
         <div class="img-box">
           <div class="flat">翻转</div>
@@ -16,13 +16,24 @@
         </div>
       </div>
     </div>
+    <div>
+      <el-button type="primary" @click="toImg">生成图片</el-button>
+      <h2>移动后图片</h2>
+      <img v-show="img" class="successimg" :src="img" alt="">
+    </div>
   </div>
 </template>
 
 <script>
 import $ from 'jquery'
+import html2canvas from 'html2canvas'
 
 export default {
+  data(){
+    return {
+      img: ''
+    }
+  },
   mounted() {
     this.initImage()
   },
@@ -48,6 +59,7 @@ export default {
       var moveMouse = false;
       var sa = 1 // 初始拉伸比例
       var count = 0
+      var Acount = 0 // ponitA起点位置
 
       // 元素跟随鼠标移动旋转拉伸
       $(".rotate").on('mousedown', function (e) {
@@ -58,6 +70,11 @@ export default {
         //获取起始点坐标
         pointB.X = e.pageX;
         pointB.Y = e.pageY;
+        if (Acount === 0) { // 如果有滚动条等,会影响位置,统一取pointB减去1/2宽高为pointA点位置
+          pointA.X = e.pageX - $('.box').width() / 2;
+          pointA.Y = e.pageY - $('.box').height() / 2;
+          Acount = 1
+        }
         console.log('pointA', pointA, 'pointB', pointB)
 
         // 计算出初始拉伸比例 
@@ -70,7 +87,7 @@ export default {
 
         // 取出当前选转的角度
         var rotate = $('.img-box').attr('rotate')
-        // console.log(rotate, scale)
+        // console.log(rotate)
 
         $('.container').on('mousemove', function (e) {
           e.preventDefault()
@@ -79,7 +96,7 @@ export default {
 
             pointC.X = e.pageX;
             pointC.Y = e.pageY; // 获取结束点坐标
-            // console.log(pointC)
+            console.log(pointC)
             // 计算每次移动元素的半径变化,用作拉伸
             var scalX = pointC.X - pointA.X
             var scalY = pointC.Y - pointA.Y
@@ -160,6 +177,15 @@ export default {
         typeMouse = false;
         moveMouse = false
       });
+    },
+
+    toImg() {
+      html2canvas(this.$refs.imgcontainer, {
+        useCORS: true,
+      }).then((canvas) => {
+        const url = canvas.toDataURL()
+        this.img = url
+      })
     }
   }
 }
@@ -171,13 +197,17 @@ html, body {
   }
   .container {
     position: relative;
+    height: 600px;
+    width: 700px;
+    background: url('../../assets/imgs/baoz2.jpg') no-repeat 0 0;
+    background-size: 100% 100%;
   }
   .box {
     position: absolute;
-    left: 200px;
-    top: 100px;
-    width: 400px;
-    height: 400px;
+    left: 230px;
+    top: 200px;
+    width: 200px;
+    height: 200px;
     color: #fff;
   }
    .img-box {
@@ -226,6 +256,10 @@ html, body {
     cursor: move;
   }
   .header {
-    height: 60px;
+    height: 130px;
+  }
+  .successimg {
+    width: 600px;
+    height: 500px;
   }
 </style>

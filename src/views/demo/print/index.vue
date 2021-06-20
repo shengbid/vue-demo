@@ -54,7 +54,7 @@ export default {
       img: '',
       printObj: {
         id: 'printMe',
-        popTitle: '打印',
+        popTitle: '打印66',
         ignoreClass: 'noprint',
         endCallback: (e) => {
           console.log(e, 5555)
