@@ -165,6 +165,18 @@ const constantRoter = [{
         meta: { title: '单选表格', icon: 'el-icon-film' }
       }
     ]
+  }, {
+    path: '/Form',
+    component: Layout,
+    redirect: '/Form/select',
+    children: [
+      {
+        path: 'tree',
+        component: () => import('@/views/Form/select'),
+        name: 'debounceSelect',
+        meta: { title: '延迟搜索select', icon: 'el-icon-s-grid' }
+      },
+    ]
   }
 ]
 

@@ -88,5 +88,26 @@ export default [
         data
       }
     }
+  },
+  {
+    url: '/get/debounce/select/list',
+    type: 'get',
+    response: (config) => {
+      const productName = config.body ? (JSON.parse(config.body)).name : ''
+      let data = []
+      for (let i = 0; i < 10; i++) {
+        const obj = {
+          id: Random.id(),
+          label: productName + Random.title(1, 4),
+          value: Random.id()
+        }
+        data.push(obj)
+      }
+      return {
+        code: 200,
+        message: 'success',
+        data
+      }
+    }
   }
 ]

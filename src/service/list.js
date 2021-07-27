@@ -14,3 +14,11 @@ export const getCheckTaleList = (data) => {
     data
   })
 }
+// 获取延迟搜索下拉数据
+export const getProductNameList = (data) => {
+  return request({
+    url: '/get/debounce/select/list',
+    method: 'get',
+    data
+  })
+}

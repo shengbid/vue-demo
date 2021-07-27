@@ -120,6 +120,19 @@ const menus = [
     ]
   },
   {
+    path: '/Form',
+    component: '',
+    meta: { title: 'Form表单', icon: 'el-icon-connection' },
+    children: [
+      {
+        path: '/Form/tree',
+        component: '/Form/tree',
+        name: 'debounceSelect',
+        meta: { title: '延迟搜索select', icon: 'el-icon-s-grid' }
+      },
+    ]
+  },
+  {
     path: '/nest',
     name: 'nest',
     component: '',
