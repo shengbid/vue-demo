@@ -27,7 +27,11 @@
       <el-form-item label="注册资本" required>
         <el-col :span="11">
           <el-form-item prop="amount">
-            <el-input placeholder="输入金额" v-model="ruleForm.amount" ></el-input>
+            <el-input 
+              placeholder="输入金额" 
+              v-model="ruleForm.amount" 
+              @input="formaterAmount"
+            ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="6">
@@ -122,7 +126,7 @@ export default {
       },
       pickerOptions: {
         disabledDate: (time) => {
-          return time.getTime() < Date.now() - 8.64e7
+          return time.getTime() > Date.now() - 8.64e7
         }
       },
       rules: {
@@ -161,10 +165,18 @@ export default {
   },
 
   methods: {
+    // 数字格式转换
+    formaterAmount(val) {
+      // console.log(val)
+      const value=String(val).replace(/[^\d^.]+/g,'')
+      this.ruleForm.amount = String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           alert('submit!')
+          this.ruleForm.amount =this.ruleForm.amount.replace(/\$\s?|(,*)/g, '')
+          console.log(this.ruleForm)
         } else {
           console.log('error submit!!')
           return false
