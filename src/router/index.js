@@ -176,6 +176,12 @@ const constantRoter = [{
         name: 'debounceSelect',
         meta: { title: '延迟搜索select', icon: 'el-icon-s-grid' }
       },
+      {
+        path: 'validate',
+        component: () => import('@/views/Form/formValidate'),
+        name: 'formValidate',
+        meta: { title: 'form表单验证', icon: 'el-icon-s-grid' }
+      },
     ]
   }
 ]
