@@ -6,12 +6,22 @@
       </el-form-item>
 
       <el-form-item label="成立时间" prop="date" required>
-        <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker>
+        <el-date-picker :picker-options="pickerOptions" type="date" placeholder="选择日期" v-model="ruleForm.date" style="width: 100%;"></el-date-picker>
       </el-form-item>
       <el-form-item label="所属行业" prop="industry">
         <el-select v-model="ruleForm.industry" placeholder="请选择所属行业">
           <el-option label="行业一" value="food"></el-option>
           <el-option label="行业二" value="medicine"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="活动区域" prop="region">
+        <el-select v-model="ruleForm.region.country" placeholder="请选择国家">
+          <el-option label="国家一" value="USA"></el-option>
+          <el-option label="国家二" value="China"></el-option>
+        </el-select>
+        <el-select v-model="ruleForm.region.city" placeholder="请选择城市">
+          <el-option label="城市一" value="shanghai"></el-option>
+          <el-option label="城市二" value="beijing"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="注册资本" required>
@@ -100,11 +110,20 @@ export default {
         amountUnit: '',
         industry: '',
         logo: '',
+        region: {
+          country: '',
+          city: ''
+        },
         relateCompanys: [{
           id: '1',
           name: '',
           industry: ''
         }]
+      },
+      pickerOptions: {
+        disabledDate: (time) => {
+          return time.getTime() < Date.now() - 8.64e7
+        }
       },
       rules: {
         name: [
@@ -115,7 +134,7 @@ export default {
           { type: 'date', required: true, message: '请选择成立日期', trigger: 'change' }
         ],
         industry: [
-          { type: 'date', required: true, message: '请选择行业', trigger: 'change' }
+          { required: true, message: '请选择行业', trigger: 'change' }
         ],
         amount: [
           { required: true, message: '请输入注册资本', trigger: 'blur' }
@@ -125,6 +144,17 @@ export default {
         ],
         logo: [
           { type: 'url', required: true, message: '请上传公司logo', trigger: 'change' }
+        ],
+        region: [
+          { 
+            type: 'object', 
+            required: true, 
+            trigger: 'change',
+            fields: {
+              country: [{ required: true, message: '请选择国家', trigger: 'change' }],
+              city: [{ required: true, message: '请选择城市', trigger: 'change' }],
+            }
+          }
         ]
       }
     }
