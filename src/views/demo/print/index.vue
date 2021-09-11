@@ -108,6 +108,14 @@
           </el-table-column>
         </el-table>
       </div>
+      <p>图片打印</p>
+      <div style="width: 60%">
+        <img src="@/assets/imgs/rotate2.jpg" alt="">
+        <el-image
+          style="width: 100px; height: 100px"
+          src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+          fit="fill"></el-image>
+      </div>
       <div style="padding: 30px" class="noprint">
         <p>不需要打印的内容</p>
         <p>不需要打印的内容</p>
@@ -123,6 +131,7 @@
 <script>
 import html2canvas from 'html2canvas'
 import printJS from 'print-js'
+
 export default {
   data() {
     return {
