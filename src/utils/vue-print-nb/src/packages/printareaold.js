@@ -127,10 +127,8 @@ export default class {
     ids = ids.replace(new RegExp("#", "g"), '');
     this.elsdom = this.beforeHanler(document.getElementById(ids));
     let ele = this.getFormData(this.elsdom);
-    ele = this.ignoreText(ele)
-    ele = this.handleTableStyle(ele)
+    ele = this.ignoreText(document.getElementById(ids))
     let htm = ele.outerHTML;
-    // console.log(ele)
     return '<body>' + htm + '</body>';
   }
   // 去除不需要打印的内容
@@ -154,38 +152,6 @@ export default class {
       for (let i = 0; i < ignoreNodes.length; i++) {
         const ignoreNode = ignoreNodes[i];
         reducer(copy, nodes, ignoreNode)
-      }
-    }
-    return copy
-  }
-  // 设置el-table样式
-  handleTableStyle(ele) {
-    const copy = ele.cloneNode(true)
-    const tableNodes = copy.querySelectorAll('.el-table__header,.el-table__body');
-    /*** 这里先注释,有需要的可以按照这个例子自己自定义 */
-    const tableBorderNodes = copy.querySelectorAll('.el-table--border');
-    const thBorderNodes = copy.querySelectorAll('.el-table--border th');
-    // 给表格添加下边框和右边框(根据自己的打印预览样式修改,不同电脑显示的效果不一样)
-    for (let i = 0; i < tableBorderNodes.length; i++) {
-      const element = tableBorderNodes[i];
-      element.style.border = '1px solid #EBEEF5'
-    }
-    // 给表格th添加边框
-    for (let i = 0; i < thBorderNodes.length; i++) {
-      const element = thBorderNodes[i];
-      element.style.border = '1px solid #EBEEF5'
-    }
-    /**------------------------------- */
-    // 处理宽度
-    for (let i = 0; i < tableNodes.length; i++) {
-      const tableItem = tableNodes[i];
-      tableItem.style.width = '100%' // 将宽度设置为百分比
-      const child = tableItem.childNodes
-      for (let j = 0; j < child.length; j++) {
-        const element = child[j];
-        if (element.localName === 'colgroup') { // 去除默认的表格宽度设置
-          element.innerHTML = ''
-        }
       }
     }
     return copy
@@ -229,7 +195,6 @@ export default class {
     for (let i = 0; i < copiedInputs.length; i++) {
       let item = copiedInputs[i];
       let typeInput = item.getAttribute('type');
-
       let copiedInput = copiedInputs[i];
       // 获取select标签
       if (!typeInput) {
@@ -264,6 +229,7 @@ export default class {
         copiedInput.setAttribute('html', item.value);
       }
     }
+    
     return copy;
   }
   getPrintWindow() {
