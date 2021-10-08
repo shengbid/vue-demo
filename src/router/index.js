@@ -171,7 +171,7 @@ const constantRoter = [{
     redirect: '/Form/select',
     children: [
       {
-        path: 'tree',
+        path: 'select',
         component: () => import('@/views/Form/select'),
         name: 'debounceSelect',
         meta: { title: '延迟搜索select', icon: 'el-icon-s-grid' }
@@ -181,6 +181,12 @@ const constantRoter = [{
         component: () => import('@/views/Form/formValidate'),
         name: 'formValidate',
         meta: { title: 'form表单验证', icon: 'el-icon-s-grid' }
+      },
+      {
+        path: 'ellipsis',
+        component: () => import('@/views/Form/ellipsis'),
+        name: 'ellipsis',
+        meta: { title: '换行省略', icon: 'el-icon-s-grid' }
       },
     ]
   }

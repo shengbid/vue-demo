@@ -125,8 +125,8 @@ const menus = [
     meta: { title: 'Form表单', icon: 'el-icon-connection' },
     children: [
       {
-        path: '/Form/tree',
-        component: '/Form/tree',
+        path: '/Form/select',
+        component: '/Form/select',
         name: 'debounceSelect',
         meta: { title: '延迟搜索select', icon: 'el-icon-s-grid' }
       },
@@ -135,6 +135,12 @@ const menus = [
         component: '/Form/formValidate',
         name: 'formValidate',
         meta: { title: 'form表单验证', icon: 'el-icon-document' }
+      },
+      {
+        path: '/Form/ellipsis',
+        component: '/Form/ellipsis',
+        name: 'ellipsis',
+        meta: { title: '换行省略', icon: 'el-icon-document' }
       },
     ]
   },
