@@ -11,11 +11,43 @@ const menus = [
     component: '',
     meta: { title: '示例', icon: 'el-icon-s-operation' },
     children: [
+      // {
+      //   path: '/demo/tree',
+      //   component: 'demo/tree',
+      //   name: 'tree',
+      //   meta: { title: '树形图', icon: 'el-icon-menu' }
+      // },
+      // {
+      //   path: '/demo/tree/tree2',
+      //   component: 'demo/tree/tree2',
+      //   name: 'tree2',
+      //   meta: { title: '树形图2', icon: 'el-icon-menu' }
+      // },
       {
         path: '/demo/tree',
-        component: 'demo/tree',
         name: 'tree',
-        meta: { title: '树形图', icon: 'el-icon-menu' }
+        component: 'CommonLayout',
+        meta: { title: '树形图', icon: 'el-icon-connection' },
+        children: [
+          {
+            path: '/demo/tree/tree1',
+            component: 'demo/tree',
+            name: 'tree1',
+            meta: { title: '树形图1', icon: 'el-icon-menu' }
+          },
+          {
+            path: '/demo/tree/tree2',
+            component: 'demo/tree/tree2',
+            name: 'tree2',
+            meta: { title: '树形图2', icon: 'el-icon-menu' }
+          },
+          {
+            path: '/demo/tree/tree3',
+            component: 'demo/tree/tree3',
+            name: 'tree3',
+            meta: { title: '树形图3', icon: 'el-icon-menu' }
+          },
+        ]
       },
       {
         path: '/demo/rotate',

@@ -34,10 +34,41 @@ const constantRoter = [{
   children: [
     {
       path: 'tree',
-      component: () => import('@/views/demo/tree'),
-      name: 'tree',
-      meta: { title: '树形图', icon: 'el-icon-menu' }
+      component: CommonLayout,
+      redirect: '/tree/tree1',
+      children: [
+        {
+          path: 'tree1',
+          name: 'tree1',
+          component: () => import('@/views/demo/tree'),
+          meta: { title: '树形图1', icon: 'el-icon-menu' }
+        },
+        {
+          path: 'tree2',
+          name: 'tree2',
+          component: () => import('@/views/demo/tree/tree2'),
+          meta: { title: '树形图2', icon: 'el-icon-menu' }
+        },
+        {
+          path: 'tree3',
+          name: 'tree3',
+          component: () => import('@/views/demo/tree/tree3'),
+          meta: { title: '树形图3', icon: 'el-icon-menu' }
+        }
+      ]
     },
+    // {
+    //   path: 'tree',
+    //   component: () => import('@/views/demo/tree'),
+    //   name: 'tree',
+    //   meta: { title: '树形图', icon: 'el-icon-menu' }
+    // },
+    // {
+    //   path: 'tree/tree2',
+    //   component: () => import('@/views/demo/tree/tree2'),
+    //   name: 'tree2',
+    //   meta: { title: '树形图2', icon: 'el-icon-menu' }
+    // },
     {
       path: 'rotate',
       component: () => import('@/views/demo/rotate'),
