@@ -1,91 +1,159 @@
 <template>
   <div class="container">
-    <vue-tree
-      style="width: 1000px; height: 600px; border: 1px solid gray;"
-      :dataset="richMediaData"
-      :config="treeConfig"
-    >
-      <template v-slot:node="{ node, collapsed }">
-        <div
-          class="rich-media-node"
-          :style="{ border: collapsed ? '2px solid grey' : '' }"
-        >
-          <img
-            :src="node.avatar"
-            style="width: 48px; height: 48px; border-raduis: 4px;"
-          />
-          <span style="padding: 4px 0; font-weight: bold;"
-            >能力值{{ node.value }}</span
-          >
-        </div>
-      </template>
-    </vue-tree>
+    <h3>vue2-org-tree组件</h3>
+    <div class="box1">
+      <vue2-org-tree
+        :data="richMediaData"
+        :props="props"
+        labelClassName="labelcss"
+      />
+    </div>
+    <div class="box1">
+      <vue2-org-tree
+        :data="treedata"
+        :horizontal="true"
+        collapsable
+        @on-expand="onExpand"
+        labelClassName="labelcss2"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-import VueTree from '@ssthouse/vue-tree-chart'
+import Vue2OrgTree from 'vue2-org-tree'
+import 'vue2-org-tree/dist/style.css'
 
 export default {
   name: 'treemap',
-  components: { VueTree },
+  components: { Vue2OrgTree },
   data() {
     return {
+      treedata: {
+        id: 0,
+        label: "XXX科技有限公司",
+        children: [
+          {
+            id: 2,
+            label: "产品研发部",
+            children: [
+              {
+                id: 5,
+                label: "研发-前端"
+              },
+              {
+                id: 6,
+                label: "研发-后端"
+              },
+              {
+                id: 9,
+                label: "UI设计"
+              },
+              {
+                id: 10,
+                label: "产品经理"
+              }
+            ]
+          },
+          {
+            id: 3,
+            label: "销售部",
+            children: [
+              {
+                id: 7,
+                label: "销售一部"
+              },
+              {
+                id: 8,
+                label: "销售二部"
+              }
+            ]
+          },
+          {
+            id: 4,
+            label: "财务部"
+          },
+          {
+            id: 9,
+            label: "HR人事"
+          }
+        ]
+      },
       richMediaData: {
         name: 'James',
-        value: 800,
-        avatar:
-          'https://gravatar.com/avatar/db51fdaf64d942180b5200ca37d155a4?s=400&d=robohash&r=x',
+        id: 800,
         children: [
           {
             name: 'Bob',
-            value: 400,
-            avatar:
-              'https://gravatar.com/avatar/16b3b886b837257757c5961513396a06?s=400&d=robohash&r=x',
+            id: 400,
             children: [
               {
                 name: 'C1',
-                value: 100,
-                avatar:
-                  'https://gravatar.com/avatar/4ee8775f23f12755db978cccdc1356d9?s=400&d=robohash&r=x'
+                id: 100
               },
               {
                 name: 'C2',
-                value: 300,
-                avatar:
-                  'https://gravatar.com/avatar/d3efa8fa639bdada96a7d0b4372e0a96?s=400&d=robohash&r=x'
+                id: 300
               },
               {
                 name: 'C3',
-                value: 200,
-                avatar:
-                  'https://gravatar.com/avatar/4905bc3e5dc51a61e3b490ccf1891107?s=400&d=robohash&r=x'
+                id: 200
               }
             ]
           },
           {
             name: 'Smith',
-            value: 200,
-            avatar:
-              'https://gravatar.com/avatar/d05d081dbbb513180025300b715d5656?s=400&d=robohash&r=x',
+            id: 200,
             children: [
               {
                 name: 'S1',
-                value: 230,
-                avatar:
-                  'https://gravatar.com/avatar/60c1e69e690d943c5dc06568148debc4?s=400&d=robohash&r=x'
+                id: 230
               }
             ]
           },
           {
             name: 'Jackson',
-            value: 300,
-            avatar:
-              'https://gravatar.com/avatar/581f7a711c815d9671c35ebd815ec1e4?s=400&d=robohash&r=x'
+            id: 300
           }
         ]
       },
-      treeConfig: { nodeWidth: 120, nodeHeight: 80, levelHeight: 200 }
+      props: { label: 'name', children: 'children', expand: 'expand' }
+    }
+  },
+  created() {
+    this.handleExpand()
+  },
+  methods: {
+    // 默认展开
+    handleExpand() {
+      this.$set(this.treedata, "expand", true)
+      this.collapse(this.treedata.children, 'init')
+    },
+    collapse(list, isInit) {
+      var _this = this;
+      list.forEach(function(child) {
+        if (child.expand) {
+          this.$set(child, "expand", false)
+          // child.expand = false
+        }
+        if (isInit) {
+          this.$set(child, "expand", true)
+        }
+        child.children && _this.collapse(child.children)
+      })
+      console.log(this.treedata)
+    },
+    // 点击折叠
+    onExpand(e,data) {
+      console.log(2, data)
+      if ("expand" in data) {
+        data.expand = !data.expand
+        if (!data.expand && data.children) {
+          this.collapse(data.children)
+        }
+      } else {
+        this.$set(data, "expand", true)
+      }
     }
   }
 }
@@ -96,6 +164,10 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  .box1 {
+    border: 1px solid gray;
+    margin-bottom: 20px;
+  }
 }
 
 .rich-media-node {
@@ -107,6 +179,21 @@ export default {
   justify-content: center;
   color: white;
   background-color: #f7c616;
+  border-radius: 4px;
+}
+</style>
+
+<style>
+.labelcss {
+  padding: 8px;
+  color: white;
+  background-color: #f7c616;
+  border-radius: 4px;
+}
+.labelcss2 {
+  padding: 8px;
+  color: white;
+  background-color: #e211e2;
   border-radius: 4px;
 }
 </style>
