@@ -54,7 +54,7 @@ const constantRoter = [{
           name: 'tree3',
           component: () => import('@/views/demo/tree/tree3'),
           meta: { title: '树形图3', icon: 'el-icon-menu' }
-        }
+        },
       ]
     },
     // {
