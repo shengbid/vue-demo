@@ -194,6 +194,12 @@ const constantRoter = [{
         component: () => import('@/views/Table/radioTable'),
         name: 'radioTable',
         meta: { title: '单选表格', icon: 'el-icon-film' }
+      },
+      {
+        path: 'verticalTable',
+        component: () => import('@/views/Table/verticalTable'),
+        name: 'verticalTable',
+        meta: { title: '纵向表格', icon: 'el-icon-film' }
       }
     ]
   }, {

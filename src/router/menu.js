@@ -148,6 +148,12 @@ const menus = [
         name: 'radioTable',
         component: '/Table/radioTable',
         meta: { title: '单选表格', icon: 'el-icon-film'},
+      },
+      {
+        path: 'verticalTable',
+        name: 'verticalTable',
+        component: '/Table/verticalTable',
+        meta: { title: '纵向表格', icon: 'el-icon-film' }
       }
     ]
   },
