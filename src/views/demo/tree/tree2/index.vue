@@ -1,22 +1,40 @@
 <template>
   <div class='container'>
-    <vue-tree
-      style="width: 800px; height: 600px; border: 1px solid gray;"
-      :dataset="vehicules"
-      :config="treeConfig"
-      linkStyle="straight"
-    >
-      <template v-slot:node="{ node, collapsed }">
-        <div
-          class="rich-media-node"
-          :style="{ border: collapsed ? '2px solid grey' : '' }"
-        >
-          <span style="padding: 4px 0; font-weight: bold;"
-          >能力值{{ node.name }}</span
+    <h3>vue-tree-chart组件</h3>
+      <vue-tree
+        style="width: 1000px; height: 600px; border: 1px solid gray;"
+        :dataset="vehicules"
+        :config="treeConfig"
+        linkStyle="straight"
+      >
+        <template v-slot:node="{ node, collapsed }">
+          <div
+            class="rich-media-node"
+            :style="{ border: collapsed ? '2px solid grey' : '' }"
           >
-        </div>
-      </template>
-    </vue-tree>
+            <span style="padding: 4px 0; font-weight: bold;"
+            >能力值{{ node.name }}</span
+            >
+          </div>
+        </template>
+      </vue-tree>
+      <vue-tree
+        style="width: 1000px; height: 600px; border: 1px solid gray;"
+        :dataset="vehicules"
+        :config="treeConfig"
+        direction="horizontal"
+      >
+        <template v-slot:node="{ node, collapsed }">
+          <div
+            class="rich-media-node"
+            :style="{ border: collapsed ? '2px solid grey' : '' }"
+          >
+            <span style="padding: 4px 0; font-weight: bold;"
+            >能力值{{ node.name }}</span
+            >
+          </div>
+        </template>
+      </vue-tree>
   </div>
 </template>
 <script>
@@ -82,6 +100,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  .box {
+    width: 1000px; height: 800px; border: 1px solid gray;margin-top:20px;
+  }
 }
 
 .rich-media-node {
