@@ -49,7 +49,7 @@
 
 <script>
 export default {
-    name: 'shopInfo',
+    name: 'radioTable',
 
     data () {
       return {
