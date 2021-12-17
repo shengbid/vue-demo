@@ -1,6 +1,7 @@
 <template>
   <div class="table-container">
     <h2>纵向表格</h2>
+    <p>横-纵向双表头</p>
     <el-table
       :data="tableData3"
       style="width: 100%"
@@ -14,6 +15,7 @@
          <template slot="header">
            <div class="line-box">日期
              <div class="line"></div>
+             <div class="name">属性</div>
            </div>
          </template>
       </el-table-column>
@@ -34,6 +36,26 @@
         label="地址"
         show-overflow-tooltip>
       </el-table-column> -->
+    </el-table>
+
+    <p>纵向表头</p>
+    <el-table
+      :data="tableData3"
+      style="width: 100%"
+      :show-header="false"
+      border
+      :cell-class-name="handleCellName"
+      class="verticaltable">
+      <el-table-column
+        prop="title"
+        width="160">
+      </el-table-column>
+      <template v-for="(item, i) in titles">
+        <el-table-column
+          :key="i"
+          :prop="item.prop">
+        </el-table-column>
+      </template>
     </el-table>
   </div>
 </template>
@@ -143,6 +165,11 @@ export default {
     .line-box {
       position: relative;
       text-align: right;
+      .name {
+        text-align: left;
+        position: absolute;
+        top: 5px;
+      }
       .line {
         position: absolute;
         width: 200px;
