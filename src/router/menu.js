@@ -115,15 +115,29 @@ const menus = [
     children: [
       {
         path: '/Table/tree',
-        name: 'treeTable',
-        component: '/Table/treeTable',
-        meta: { title: '树形表格', icon: 'el-icon-s-grid' },
-      },
-      {
-        path: '/Table/treeCheck',
-        component: '/Table/treeCheckTable',
-        name: 'treeCheckTable',
-        meta: { title: '级联选择表格', icon: 'el-icon-s-grid' }
+        name: 'someTable',
+        component: 'CommonLayout',
+        meta: { title: '奇奇怪怪表格', icon: 'el-icon-s-grid' },
+        children: [
+          {
+            path: '/Table/tree/eltree',
+            name: 'treeTable',
+            component: '/Table/treeTable',
+            meta: { title: '树形表格', icon: 'el-icon-s-grid' },
+          },
+          {
+            path: '/Table/tree/treeCheck',
+            component: '/Table/treeCheckTable',
+            name: 'treeCheckTable',
+            meta: { title: '级联选择表格', icon: 'el-icon-s-grid' }
+          },
+          {
+            path: '/Table/tree/collpase',
+            name: 'collpaseCheckTable',
+            component: 'Table/treeCheckTable/collpase',
+            meta: { title: '可折叠选择表格', icon: 'el-icon-s-grid' }
+          }
+        ]
       },
       {
         path: '/Table/validate',

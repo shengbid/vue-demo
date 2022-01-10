@@ -161,15 +161,28 @@ const constantRoter = [{
     children: [
       {
         path: 'tree',
-        component: () => import('@/views/Table/treeTable'),
-        name: 'treeTable',
-        meta: { title: '树形表格', icon: 'el-icon-s-grid' }
-      },
-      {
-        path: 'treeCheck',
-        component: () => import('@/views/Table/treeCheckTable'),
-        name: 'treeCheckTable',
-        meta: { title: '级联选择表格', icon: 'el-icon-s-grid' }
+        component: CommonLayout,
+        redirect: '/Table/tree/eltree',
+        children: [
+          {
+            path: 'eltree',
+            component: () => import('@/views/Table/treeTable'),
+            name: 'treeTable',
+            meta: { title: '树形表格', icon: 'el-icon-s-grid' }
+          },
+          {
+            path: 'treeCheck',
+            component: () => import('@/views/Table/treeCheckTable'),
+            name: 'treeCheckTable',
+            meta: { title: '级联选择表格', icon: 'el-icon-s-grid' }
+          },
+          {
+            path: 'collpase',
+            component: () => import('@/views/Table/treeCheckTable/collpase'),
+            name: 'collpaseCheckTable',
+            meta: { title: '可折叠选择表格', icon: 'el-icon-s-grid' }
+          },
+        ]
       },
       {
         path: 'validate',
