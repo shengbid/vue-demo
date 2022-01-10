@@ -166,6 +166,12 @@ const constantRoter = [{
         meta: { title: '树形表格', icon: 'el-icon-s-grid' }
       },
       {
+        path: 'treeCheck',
+        component: () => import('@/views/Table/treeCheckTable'),
+        name: 'treeCheckTable',
+        meta: { title: '级联选择表格', icon: 'el-icon-s-grid' }
+      },
+      {
         path: 'validate',
         component: () => import('@/views/Table/validateTable'),
         name: 'validateTable',
