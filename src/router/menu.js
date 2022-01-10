@@ -120,6 +120,12 @@ const menus = [
         meta: { title: '树形表格', icon: 'el-icon-s-grid' },
       },
       {
+        path: '/Table/treeCheck',
+        component: '/Table/treeCheckTable',
+        name: 'treeCheckTable',
+        meta: { title: '级联选择表格', icon: 'el-icon-s-grid' }
+      },
+      {
         path: '/Table/validate',
         name: 'validateTable',
         component: '/Table/validateTable',
