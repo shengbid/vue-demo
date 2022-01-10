@@ -1,15 +1,15 @@
 <template>
   <div style="padding:30px;">
-    <h2>平级树形可选择表格(奇奇怪怪的需求)</h2>
+    <h2>平级树形可选择表格</h2>
     <div class="contanier">
-
-      <div class="flat-contanier">
+      <p>合并的表格</p>
+      <div class="table-contanier">
         <el-table
           ref="checkTable"
           :data="tableData"
+          :span-method="arraySpanMethod"
           border
           style="width: 100%"
-          :row-style="rowStyle"
         >
           <el-table-column
             label="一级"
@@ -17,16 +17,11 @@
           >
             <template slot-scope="scope">
               <el-checkbox 
-                v-if="scope.row.threeRowSpan"
                 v-model="scope.row.firstchecked" 
                 :indeterminate="scope.row.firstindeterminate"
                 @change="(val) => changeFirst(val, scope.row.firstId)"
               ></el-checkbox>
-              {{scope.row.threeRowSpan ? scope.row.firstName : ''}}
-              <i 
-                v-if="scope.row.threeRowSpan" 
-                @click="clickFirstCell(scope.row)"
-                :class="scope.row.firstCollpase ? 'el-icon-arrow-down' : 'el-icon-arrow-up'"></i>
+              {{scope.row.firstName}}
             </template>
           </el-table-column>
           <el-table-column
@@ -35,17 +30,11 @@
           >
             <template slot-scope="scope">
               <el-checkbox 
-                v-if="scope.row.twoRowSpan"
                 v-model="scope.row.secondtchecked" 
                 :indeterminate="scope.row.seconddeterminate"
                 @change="(val) => changeTwo(val, scope.row)"
               ></el-checkbox>
-              {{scope.row.twoRowSpan ? scope.row.secondName : ''}}
-              <i 
-                v-if="scope.row.twoRowSpan" 
-                @click="clickSecondCell(scope.row)"
-                :class="scope.row.secondCollpase ? 'el-icon-arrow-down' : 'el-icon-arrow-up'"
-              ></i>
+              {{scope.row.secondName}}
             </template>
           </el-table-column>
           <el-table-column
@@ -242,7 +231,21 @@ export default {
       })
 
       this.tableData = newData
-      console.log(this.tableData)
+      // console.log(this.tableData)
+    },
+
+    // 表格合并方法(三层数据)
+    arraySpanMethod({ row, column, rowIndex, columnIndex }) {
+      if (columnIndex === 0) {
+        if (row.threeRowSpan) { // 如果有值,说明需要合并
+          return [row.threeRowSpan, 1]
+        } else return [0, 0]
+      }
+      if (columnIndex === 1) {
+        if (row.twoRowSpan) {
+          return [row.twoRowSpan, 1]
+        } else return [0, 0]
+      }
     },
 
     // 点击第一列多选框
@@ -375,53 +378,6 @@ export default {
       })
       this.table = arr
       this.getTableData(arr)
-    },
-
-    // 点击折叠第一列
-    clickFirstCell(row) {
-      console.log(row)
-      const isCollpase = !row.firstCollpase
-      this.table.map(item => {
-        if (item.id === row.firstId) {
-          item.collpase = isCollpase
-          item.children.map((ss, si) => {
-            ss.collpase = isCollpase
-            ss.children.map((tt, ti) => {
-              if (!(si === 0 && ti === 0)) {
-                tt.collpase = isCollpase
-              }
-            })
-          })
-        }
-      })
-      this.getTableData(this.table)
-
-    },
-    // 点击折叠第二列
-    clickSecondCell(row) {
-      console.log(row)
-      const isCollpase = !row.secondCollpase
-      this.table.map(item => {
-        item.children.map(ss => {
-          if (ss.id === row.secondId) {
-            ss.collpase = isCollpase
-            ss.children.map((tt, ti) => {
-              if (ti !== 0) {
-                tt.collpase = isCollpase
-              }
-            })
-          }
-        })
-      })
-  
-      this.getTableData(this.table)
-    },
-    // 表格显示与隐藏
-    rowStyle({ row }) {
-      if (row.threeCollpase) {
-        return {display: 'none'}
-      }
-      return ''
     }
   }
 }
