@@ -57,7 +57,17 @@
         <el-checkbox v-model="checkedAll" @change="changeAllSelect" />
       </template>
       <template slot-scope="scope">
-        <el-checkbox v-model="scope.row.checked" @change="changeRowSelect(scope.row)" />
+        <el-checkbox 
+          v-if="scope.row.childs" 
+          :indeterminate="scope.row.indeterminate"
+          v-model="scope.row.checked" 
+          @change="changeRowSelect(scope.row)" 
+        />
+        <el-checkbox 
+          v-else 
+          v-model="scope.row.checked" 
+          @change="changeRowSelect(scope.row)" 
+        />
       </template>
     </el-table-column>
     <!-- <el-table-column

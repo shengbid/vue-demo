@@ -1,6 +1,7 @@
 import "./index.less";
 import template from "./index.html";
 import { getTreeData } from '@/service/list'
+import { isEmpty } from 'lodash'
 
 export default {
   template,
@@ -98,12 +99,52 @@ export default {
 
     // 选择表格(全选)
     changeAllSelect (val) {
-      console.log(val)
+      // console.log(val)
+      const loop = (data) => {
+        data.forEach(item => {
+          item.checked = val
+          if ('indeterminate' in item) {
+            item.indeterminate = false
+          }
+          if (item.childs) {
+            loop(item.childs)
+          }
+        })
+      }
+      loop(this.tableData2)
     },
 
     // 选择表格(表格行选择)
     changeRowSelect (val) {
-      console.log(val)
+      // console.log(val)
+      if (!isEmpty(val.childs)) {
+        val.childs.forEach(ss => {
+          ss.checked = val.checked
+        })
+      } else {
+        let checkedLeg = 0
+        this.tableData2.some(item => {
+          if (item.id === val.parentId) {
+            // 获取当前父级下子级选中条数
+            const leg = item.childs.length
+            checkedLeg = item.childs.filter(ss => ss.checked).length
+            // 根据条数改变父级的indeterminate和checked
+            if (checkedLeg === 0) {
+              item.indeterminate = false
+              item.checked = false
+            } else if (checkedLeg < leg) {
+              item.indeterminate = true
+              item.checked = false
+            } else if (checkedLeg === leg) {
+              item.indeterminate = false
+              item.checked = true
+            }
+
+            return
+          }
+        })
+        // console.log(this.tableData2)
+      }
     },
 
     // 表格样式,子级的选择框右移
