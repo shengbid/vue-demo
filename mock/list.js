@@ -55,6 +55,45 @@ export default [
     }
   },
   {
+    url: '/get/table/tree/list',
+    type: 'get',
+    response: () => {
+      // 创建树形数据
+      let data = []
+      const loop = (data, count = 3, l = 0) => {
+        const level = l + 1
+        for (let i = 0; i < count; i++) {
+          const item = {
+            id: Random.id(),
+            level,
+            name: Random.cname(), 
+            date: Random.date('yyyy-MM-dd'),
+            address: Random.county(true),
+            checked: false
+          }
+          if (level > 2) {
+            return
+          }
+
+          const number =  Mock.mock({
+            "number|1-5": 5
+          })
+          item.childs = loop([], number.number, level)
+
+          data.push(item)
+        }
+
+        return data
+      }
+      loop(data)
+      return {
+        code: 200,
+        message: 'success',
+        data,
+      }
+    }
+  },
+  {
     url: '/get/check/table/list',
     type: 'get',
     response: (config) => {

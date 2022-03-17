@@ -22,3 +22,10 @@ export const getProductNameList = (data) => {
     data
   })
 }
+// 获取树形表格数据
+export const getTreeData = () => {
+  return request({
+    url: '/get/table/tree/list',
+    method: 'get'
+  })
+}
