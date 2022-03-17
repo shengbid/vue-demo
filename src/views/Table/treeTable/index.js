@@ -1,5 +1,6 @@
 import "./index.less";
 import template from "./index.html";
+import { getTreeData } from '@/service/list'
 
 export default {
   template,
@@ -10,12 +11,15 @@ export default {
         label: 'accountNo', // 需要指定的节点渲染对象属性
         children: 'orderInvoiceAssemblyList' // 指定的子级
       },
-      tableData: [] // tree组件渲染的数据
+      tableData: [], // tree组件渲染的数据
+      tableData2: [],
+      checkedAll: false, // 是否全选
     }
   },
 
   created() {
     this.getSupplierPayInvoice()
+    this.getTree()
   },
   // 方法集合
   methods: {
@@ -78,12 +82,37 @@ export default {
 
     },
 
+    async getTree () {
+      const { data } = await getTreeData()
+      console.log(data)
+      this.tableData2 = data
+    },
+
     // tree组件选择改变事件
     handleCheckChange () {
       // console.log(val)
       // 使用getCheckedNodes可以获取当前被选中的节点数据
       let selected = this.$refs.treeData.getCheckedNodes()
       console.log(33, selected)
+    },
+
+    // 选择表格(全选)
+    changeAllSelect (val) {
+      console.log(val)
+    },
+
+    // 选择表格(表格行选择)
+    changeRowSelect (val) {
+      console.log(val)
+    },
+
+    // 表格样式,子级的选择框右移
+    cellStyle ({row, column, rowIndex, columnIndex}) {
+      // console.log(row, column, rowIndex, columnIndex)
+      if (!row.childs && columnIndex === 0) {
+        return 'text-align: right'
+      }
+      return ''
     }
   }
 };

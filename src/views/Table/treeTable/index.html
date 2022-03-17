@@ -1,40 +1,89 @@
-<div class="invoice-list">
-  <!-- 表头的值,自己单独写的 -->
-  <ul class="invoice-header">
-    <li class="invoice-item">发票号</li>
-    <li class="invoice-item">订单号</li>
-    <li class="invoice-item">发票金额</li>
-    <li class="invoice-item">开票日期</li>
-    <li class="invoice-item">收款方式</li>
-    <li class="invoice-item">状态</li>
-    <li class="invoice-item">发票收款日期</li>
-    <li class="invoice-item">操作</li>
-  </ul>
-  <el-tree
-    :props="props"
-    :data="tableData"
-    show-checkbox
-    default-expand-all
-    ref="treeData"
-    @check-change="handleCheckChange">
-    <!-- 使用自定义,需要加slot-scope,返回两个值,node是当前节点指定的对象
-    data是当前节点的数据 -->
-    <div class="custom-tree-node" slot-scope="{ node, data }">
-      <div class="total_info_box clearfix" v-if="data.span">
-        <span><i>对账单号:</i> {{data.accountNo | isEmptyVal}}</span>
-        <span><i>对账金额:</i> {{data.totalReconciledAmount | formatUSD}}</span>
-        <span><i>对账日期:</i> {{data.confirmAccountDate | formatYMD}}</span>
+<div>
+  <h3>el-tree树形组件实现</h3>
+  <div class="invoice-list">
+    <!-- 表头的值,自己单独写的 -->
+    <ul class="invoice-header">
+      <li class="invoice-item">发票号</li>
+      <li class="invoice-item">订单号</li>
+      <li class="invoice-item">发票金额</li>
+      <li class="invoice-item">开票日期</li>
+      <li class="invoice-item">收款方式</li>
+      <li class="invoice-item">状态</li>
+      <li class="invoice-item">发票收款日期</li>
+      <li class="invoice-item">操作</li>
+    </ul>
+    <el-tree
+      :props="props"
+      :data="tableData"
+      show-checkbox
+      default-expand-all
+      ref="treeData"
+      @check-change="handleCheckChange">
+      <!-- 使用自定义,需要加slot-scope,返回两个值,node是当前节点指定的对象
+      data是当前节点的数据 -->
+      <div class="custom-tree-node" slot-scope="{ node, data }">
+        <div class="total_info_box clearfix" v-if="data.span">
+          <span><i>对账单号:</i> {{data.accountNo | isEmptyVal}}</span>
+          <span><i>对账金额:</i> {{data.totalReconciledAmount | formatUSD}}</span>
+          <span><i>对账日期:</i> {{data.confirmAccountDate | formatYMD}}</span>
+        </div>
+        <span v-else class="table_info_node">
+          <span class="table_info_item">{{data.invoiceNo}}</span>
+          <span class="table_info_item">{{data.orderNo}}</span>
+          <span class="table_info_item">{{data.totalAmountTax}}</span>
+          <span class="table_info_item">{{data.billingDate | formatYMD}}</span>
+          <span class="table_info_item">{{data.forCollection}}</span>
+          <span class="table_info_item">{{data.requestStatus}}</span>
+          <span class="table_info_item">{{data.receiptDate}}</span>
+          <span class="table_info_item"><el-button @click="toInvoiceDetail(data)">详情</el-button></span>
+        </span>
       </div>
-      <span v-else class="table_info_node">
-        <span class="table_info_item">{{data.invoiceNo}}</span>
-        <span class="table_info_item">{{data.orderNo}}</span>
-        <span class="table_info_item">{{data.totalAmountTax}}</span>
-        <span class="table_info_item">{{data.billingDate | formatYMD}}</span>
-        <span class="table_info_item">{{data.forCollection}}</span>
-        <span class="table_info_item">{{data.requestStatus}}</span>
-        <span class="table_info_item">{{data.receiptDate}}</span>
-        <span class="table_info_item"><el-button @click="toInvoiceDetail(data)">详情</el-button></span>
-      </span>
-    </div>
-  </el-tree>
+    </el-tree>
+  </div>
+
+  <div style="margin-top: 20px;"></div>
+  <h3>el-table自带树形表格实现</h3>
+  <el-table
+    :data="tableData2"
+    style="width: 100%;margin-bottom: 20px;"
+    row-key="id"
+    border
+    default-expand-all
+    :cell-style="cellStyle"
+    :tree-props="{children: 'childs'}">
+    <el-table-column
+      width="75">
+      <template slot="header" slot-scope="scope">
+        <el-checkbox v-model="checkedAll" @change="changeAllSelect" />
+      </template>
+      <template slot-scope="scope">
+        <el-checkbox v-model="scope.row.checked" @change="changeRowSelect(scope.row)" />
+      </template>
+    </el-table-column>
+    <!-- <el-table-column
+      type="selection"
+      width="55">
+    </el-table-column> -->
+    <el-table-column
+      prop="date"
+      label="日期"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="name"
+      label="姓名"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="address"
+      label="地址">
+    </el-table-column>
+    <el-table-column label="操作" width="80">
+      <template slot-scope="scope">
+        <el-button
+          size="mini"
+          >详情</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
 </div>
