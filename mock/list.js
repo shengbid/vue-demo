@@ -60,7 +60,7 @@ export default [
     response: () => {
       // 创建树形数据
       let data = []
-      const loop = (data, count = 3, l = 0) => {
+      const loop = (data, count = 3, l = 0, parentId = null) => {
         const level = l + 1
         for (let i = 0; i < count; i++) {
           const item = {
@@ -74,11 +74,17 @@ export default [
           if (level > 2) {
             return
           }
+          if (level === 1) {
+            item.indeterminate = false
+          }
+          if (level === 2) {
+            item.parentId = parentId
+          }
 
           const number =  Mock.mock({
             "number|1-5": 5
           })
-          item.childs = loop([], number.number, level)
+          item.childs = loop([], number.number, level, item.id)
 
           data.push(item)
         }
