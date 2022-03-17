@@ -145,8 +145,33 @@ export default {
         })
         // console.log(this.tableData2)
       }
+      // 判断是否全部选择了,改变全选框的样式
+      let flag = true
+      this.tableData2.some(item => {
+        if (!item.checked) {
+          flag = false
+          return
+        }
+      })
+      this.checkedAll = flag
     },
 
+    // 点击提交选中的表格
+    handleSelectTable () {
+      const selectedIds = []
+      const loop = (data) => {
+        data.forEach(item => {
+          if (item.checked || item.indeterminate) {
+            selectedIds.push(item.id)
+            if (item.childs) {
+              loop(item.childs)
+            }
+          }
+        })
+      }
+      loop(this.tableData2)
+      console.log(selectedIds)
+    },
     // 表格样式,子级的选择框右移
     cellStyle ({row, column, rowIndex, columnIndex}) {
       // console.log(row, column, rowIndex, columnIndex)

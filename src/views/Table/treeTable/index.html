@@ -1,5 +1,6 @@
 <div>
   <h3>el-tree树形组件实现</h3>
+  <p>博客链接: <a target="_blank" href="https://www.cnblogs.com/steamed-twisted-roll/p/10348471.html">https://www.cnblogs.com/steamed-twisted-roll/p/10348471.html</a></p>
   <div class="invoice-list">
     <!-- 表头的值,自己单独写的 -->
     <ul class="invoice-header">
@@ -42,7 +43,9 @@
   </div>
 
   <div style="margin-top: 20px;"></div>
-  <h3>el-table自带树形表格实现</h3>
+  <h3>el-table自带树形表格实现 
+    <el-button type="primary" style="margin-left: 40px" @click="handleSelectTable">提交</el-button>
+  </h3>
   <el-table
     :data="tableData2"
     style="width: 100%;margin-bottom: 20px;"
