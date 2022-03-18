@@ -126,6 +126,12 @@ const menus = [
             meta: { title: '树形表格', icon: 'el-icon-s-grid' },
           },
           {
+            path: '/Table/tree/asyncTree',
+            component: '/Table/asyncTreeTable',
+            name: 'asyncTree',
+            meta: { title: '异步树形表格', icon: 'el-icon-s-grid' }
+          },
+          {
             path: '/Table/tree/treeCheck',
             component: '/Table/treeCheckTable',
             name: 'treeCheckTable',

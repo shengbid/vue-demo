@@ -171,6 +171,12 @@ const constantRoter = [{
             meta: { title: '树形表格', icon: 'el-icon-s-grid' }
           },
           {
+            path: 'asyncTree',
+            component: () => import('@/views/Table/asyncTreeTable'),
+            name: 'asyncTree',
+            meta: { title: '异步树形表格', icon: 'el-icon-s-grid' }
+          },
+          {
             path: 'treeCheck',
             component: () => import('@/views/Table/treeCheckTable'),
             name: 'treeCheckTable',
