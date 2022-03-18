@@ -29,3 +29,10 @@ export const getTreeData = () => {
     method: 'get'
   })
 }
+// 获取表格数据
+export const getTableData = () => {
+  return request({
+    url: '/get/table/list',
+    method: 'get'
+  })
+}

@@ -55,7 +55,7 @@ export default [
     }
   },
   {
-    url: '/get/table/tree/list',
+    url: '/get/table/tree/list', // 获取树形表格数据
     type: 'get',
     response: () => {
       // 创建树形数据
@@ -100,7 +100,30 @@ export default [
     }
   },
   {
-    url: '/get/check/table/list',
+    url: '/get/table/list', // 获取单页表格数据
+    type: 'get',
+    response: () => {
+      let data = []
+      for (let i = 0; i < 5; i++) {
+        const item = {
+          id: Random.id(),
+          name: Random.cname(), 
+          date: Random.date('yyyy-MM-dd'),
+          address: Random.county(true),
+        }
+        
+        data.push(item)
+      }
+
+      return {
+        code: 200,
+        message: 'success',
+        data,
+      }
+    }
+  },
+  {
+    url: '/get/check/table/list', // 获取分页表格数据
     type: 'get',
     response: (config) => {
       const page = config.body ? (JSON.parse(config.body)).page : 1
