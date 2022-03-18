@@ -103,7 +103,7 @@ export default [
     url: '/get/table/list', // 获取单页表格数据
     type: 'post',
     response: (config) => {
-      const parentId = config.body ? (JSON.parse(config.body)).id : null
+      const params = config.body ? (JSON.parse(config.body)) : null
       let data = []
       const number =  Mock.mock({
         "number|3-5": 5
@@ -114,9 +114,11 @@ export default [
           name: Random.cname(), 
           date: Random.date('yyyy-MM-dd'),
           address: Random.county(true),
+          level: 1
         }
-        if (parentId) {
-          item.parentId = parentId
+        if (params) {
+          item.parentId = params.parentId
+          item.level = params.level + 1
         }
         
         data.push(item)
