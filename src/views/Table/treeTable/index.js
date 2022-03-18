@@ -15,6 +15,7 @@ export default {
       tableData: [], // tree组件渲染的数据
       tableData2: [],
       checkedAll: false, // 是否全选
+      indent: 16 // 子级距离
     }
   },
 
@@ -173,12 +174,11 @@ export default {
       console.log(selectedIds)
     },
     // 表格样式,子级的选择框右移
-    cellStyle ({row, column, rowIndex, columnIndex}) {
-      // console.log(row, column, rowIndex, columnIndex)
-      if (!row.childs && columnIndex === 0) {
-        return 'text-align: right'
-      }
-      return ''
-    }
+    // cellStyle ({row, column, rowIndex, columnIndex}) {
+    //   if (!row.childs && columnIndex === 0) {
+    //     return 'text-align: right'
+    //   }
+    //   return ''
+    // }
   }
 };
