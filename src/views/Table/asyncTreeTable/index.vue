@@ -3,7 +3,7 @@
     <h3>el-table异步树形表格
     </h3>
     <p>博客链接:
-      <a href="https://www.cnblogs.com/steamed-twisted-roll/p/16018046.html" target="_blank">https://www.cnblogs.com/steamed-twisted-roll/p/16018046.html</a>
+      <a href="https://www.cnblogs.com/steamed-twisted-roll/p/16022781.html" target="_blank">https://www.cnblogs.com/steamed-twisted-roll/p/16022781.html</a>
     </p>
     <el-table
       :data="tableData"
