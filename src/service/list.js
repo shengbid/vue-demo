@@ -30,9 +30,10 @@ export const getTreeData = () => {
   })
 }
 // 获取表格数据
-export const getTableData = () => {
+export const getTableData = (data) => {
   return request({
     url: '/get/table/list',
-    method: 'get'
+    method: 'post',
+    data
   })
 }

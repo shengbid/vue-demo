@@ -101,15 +101,22 @@ export default [
   },
   {
     url: '/get/table/list', // 获取单页表格数据
-    type: 'get',
-    response: () => {
+    type: 'post',
+    response: (config) => {
+      const parentId = config.body ? (JSON.parse(config.body)).id : null
       let data = []
-      for (let i = 0; i < 5; i++) {
+      const number =  Mock.mock({
+        "number|3-5": 5
+      }).number
+      for (let i = 0; i < number; i++) {
         const item = {
           id: Random.id(),
           name: Random.cname(), 
           date: Random.date('yyyy-MM-dd'),
           address: Random.county(true),
+        }
+        if (parentId) {
+          item.parentId = parentId
         }
         
         data.push(item)
