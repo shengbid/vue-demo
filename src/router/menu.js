@@ -72,6 +72,12 @@ const menus = [
         component: 'demo/print',
         name: 'print',
         meta: { title: '打印', icon: 'el-icon-printer' }
+      },
+      {
+        path: '/demo/printjs',
+        component: 'demo/printJS',
+        name: 'printjs',
+        meta: { title: 'printJS打印', icon: 'el-icon-printer' }
       }
     ]
   },

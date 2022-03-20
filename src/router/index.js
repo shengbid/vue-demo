@@ -92,6 +92,12 @@ const constantRoter = [{
       component: () => import('@/views/demo/print'),
       name: 'print',
       meta: { title: '打印', icon: 'el-icon-s-grid' }
+    },
+    {
+      path: 'printjs',
+      component: () => import('@/views/demo/printJS'),
+      name: 'printjs',
+      meta: { title: '打印', icon: 'el-icon-s-grid' }
     }
   ]
 }, {
