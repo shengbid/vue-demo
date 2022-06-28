@@ -37,10 +37,9 @@
       :close-on-click-modal="false"
       width="450px">
       <slideverify 
-        :l="42"  ref="dialogopen"
-        :r="10"
+        ref="dialogopen"
         :w="410"
-        :h="200"
+        :h="220"
         :block_y="puzzePass.block_y"
         :imgurl="puzzePass.imgurl"
         :miniimgurl="puzzePass.miniimgurl"
@@ -191,6 +190,7 @@
         })
       },
 
+      // 获取验证码图片
       getImageVerifyCode () {
         const imgobj = {
           // bigImage: 'https://picsum.photos/300/150/?image=248',

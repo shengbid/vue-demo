@@ -39,42 +39,38 @@ export default {
   name: "SlideVerify",
   props: {
     // block length
-    l: {
-      type: Number,
-      default: 42
-    },
+    // l: { // 小图宽高
+    //   type: Number,
+    //   default: 42
+    // },
     // block radius
-    r: {
-      type: Number,
-      default: 10
-    },
+    // r: { // 图形radius
+    //   type: Number,
+    //   default: 10
+    // },
     // canvas width
     w: {
-      type: Number,
+      type: Number, // 大图的宽
       default: 310
     },
     // canvas height
     h: {
-      type: Number,
-      default: 155
+      type: Number, // 大图的高
+      default: 180
     },
-    block_x: {
-      type: Number,
-      default: 155
-    },
-    block_y: {
+    block_y: { // 小图初始的y距离
       type: Number,
       default: 20
     },
-    sliderText: {
+    sliderText: { // 底部滑块的文字
       type: String,
-      default: "Slide filled right"
+      default: "右滑"
     },
-    imgurl: {
+    imgurl: { // 大图的地址
       type: String,
       default: ""
     },
-    miniimgurl: {
+    miniimgurl: { // 小图的地址
       type: String,
       default: ""
     }
@@ -89,9 +85,7 @@ export default {
       blockCtx: null,
       block: null,
       canvasStr: null,
-      //block_x: undefined, // container random position
-      // block_y: undefined,
-      L: this.l + this.r * 2 + 3, // block real lenght
+      // L: this.l + this.r * 2 + 3, // block real lenght
       img: undefined,
       originX: undefined,
       originY: undefined,
@@ -99,7 +93,7 @@ export default {
       trail: [],
       widthlable: "",
       sliderLeft: 0, // block right offset
-      sliderMaskWidth: 0, // mask width
+      sliderMaskWidth: 0, // 移动滑块的面积蒙层
       dialogVisible: false,
       infoText: '验证成功',
       fail: false,
@@ -107,7 +101,7 @@ export default {
     };
   },
   mounted() {
-    //随机生成数this.block_x =
+    //随机生成数
     this.init();
   },
   methods: {
@@ -145,7 +139,7 @@ export default {
       };
       img1.src = that.miniimgurl;
       img1.onload = function() {
-        blockCtx.drawImage(img1, 0, block_y, 60, 60);
+        blockCtx.drawImage(img1, 0, block_y, 60, 60); // 小图宽高60
       };
       // console.log(img, img1, that.imgurl, that.miniimgurl)
     },
@@ -169,7 +163,10 @@ export default {
         const moveY = e.clientY - this.originY;
         if (moveX < 0 || moveX + 38 >= this.w) return false;
         this.sliderLeft = moveX + "px";
-        let blockLeft = ((this.w - 40 - 20) / (this.w - 40)) * moveX;
+        // 小图的距离计算: 由于滑块和小图的宽可能不一致,所以不能直接把滑块的left赋值给小图的left
+        // 当前示例: 小图宽60,滑块宽40, 
+        // 计算出两者的比例(滑块和小图的宽,相差不要太大,否则可能会有对不齐的现象)
+        let blockLeft = ((this.w - 60) / (this.w - 40)) * moveX;
         this.block.style.left = blockLeft + "px";
 
         this.containerActive = true; // add active
@@ -190,7 +187,7 @@ export default {
       const moveY = e.changedTouches[0].pageY - this.originY;
       if (moveX < 0 || moveX + 38 >= this.w) return false;
       this.sliderLeft = moveX + "px";
-      let blockLeft = ((this.w - 40 - 20) / (this.w - 40)) * moveX;
+      let blockLeft = ((this.w - 60) / (this.w - 40)) * moveX;
       this.block.style.left = blockLeft + "px";
 
       this.containerActive = true;
