@@ -5,6 +5,8 @@
 这个项目是平时练习项目,后续会陆续增加demo,争取把之前博客有写到的一些功能都加进来.
 如果对你有帮助的话,请点个star哈,Thanks♪(･ω･)ﾉ
 ```
+### 如果下载下来启动不了,可能是node版本问题,这个项目写的也比较久了,最近会逐渐把功能移到另一个项目,使用vue3+ant-design写的,目前已经有一些基础功能,有需要可以看看: https://github.com/shengbid/vue3-vite-demo
+有什么其他需求也可以留言
 ###  如果有问题可以加我微信haluo441,拉你进交流群,大家一起学习进步O(∩_∩)O哈哈~
 <p align="center">
   <img width="300" src="https://i.loli.net/2021/02/25/u5cPEk1aIBWCoRA.jpg">
